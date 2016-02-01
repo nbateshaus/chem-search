@@ -1,0 +1,147 @@
+-- Collect synonyms into arrays to present as multi-value fields.
+DROP VIEW IF EXISTS synonyms_agg CASCADE;
+CREATE VIEW synonyms_agg AS
+SELECT
+    molregno,
+    syn_type,
+    array_agg(synonyms) AS synonyms
+FROM molecule_synonyms
+GROUP BY molregno, syn_type;
+
+-- Create a JSON object for each row in molecule_dictionary,
+-- denormalizing everything onto it.
+DROP VIEW IF EXISTS molecule_denormalized CASCADE;
+CREATE VIEW molecule_denormalized AS
+SELECT
+    CASE md.availability_type
+      -- -1 appears in the data; let it go to NULL
+      WHEN 0 THEN 'discontinued'
+      WHEN 1 THEN 'prescription only'
+      WHEN 2 THEN 'over the counter'
+      END                                     AS "availability_type",
+    (md.black_box_warning <> 0)               AS "black_box_warning",
+    md.chebi_par_id                           AS "chebi_id",
+    md.chembl_id                              AS "chembl_id",
+    CASE md.chirality
+      -- -1 appears in the data; let it go to NULL
+      WHEN 0 THEN 'racemic mixture'
+      WHEN 1 THEN 'single stereoisomer'
+      WHEN 2 THEN 'achiral molecule'
+      END                                     AS "chirality",
+    (md.dosed_ingredient <> 0)                AS "dosed_ingredient",
+    md.first_approval                         AS "first_approval",
+    (md.first_in_class <> 0)                  AS "first_in_class",
+    md.indication_class                       AS "indication_class",
+    (md.inorganic_flag <> 0)                  AS "inorganic",
+    md.max_phase                              AS "max_phase",
+    md.molecule_type                          AS "molecule_type",
+    (md.natural_product <> 0)                 AS "natural_product",
+    (md.oral <> 0)                            AS "oral",
+    (md.parenteral <> 0)                      AS "parenteral",
+    (md.polymer_flag <> 0)                    AS "polymer",
+    md.pref_name                              AS "preferred_name",
+    (md.prodrug <> 0)                         AS "prodrug",
+    md.structure_type                         AS "structure_type",
+    (md.therapeutic_flag <> 0)                AS "therapeutic",
+    (md.topical <> 0)                         AS "topical",
+    md.usan_stem_definition                   AS "usan_stem_definition",
+    md.usan_stem                              AS "usan_stem",
+    md.usan_substem                           AS "usan_substem",
+    md.usan_year                              AS "usan_year",
+    cp.mw_freebase                            AS "mw_freebase",
+    cp.alogp                                  AS "alogp",
+    cp.hba                                    AS "hba",
+    cp.hbd                                    AS "hbd",
+    cp.psa                                    AS "psa",
+    cp.rtb                                    AS "rtb",
+    CASE cp.ro3_pass
+      WHEN 'Y' THEN true
+      WHEN 'N' THEN false
+    END                                       AS "ro3_pass",
+    cp.num_ro5_violations                     AS "num_ro5_violations",
+    CASE cp.med_chem_friendly
+      WHEN 'Y' THEN true
+      WHEN 'N' THEN false
+    END                                       AS "med_chem_friendly",
+    cp.acd_most_apka                          AS "acd_most_apka",
+    cp.acd_most_bpka                          AS "acd_most_bpka",
+    cp.acd_logp                               AS "acd_logp",
+    cp.acd_logd                               AS "acd_logd",
+    cp.molecular_species                      AS "molecular_species",
+    cp.full_mwt                               AS "full_mwt",
+    cp.aromatic_rings                         AS "aromatic_rings",
+    cp.heavy_atoms                            AS "heavy_atoms",
+    cp.num_alerts                             AS "num_alerts",
+    cp.qed_weighted                           AS "qed_weighted",
+    cp.mw_monoisotopic                        AS "mw_monoisotopic",
+    cp.full_molformula                        AS "full_molformula",
+    cp.hba_lipinski                           AS "hba_lipinski",
+    cp.hbd_lipinski                           AS "hbd_lipinski",
+    cp.num_lipinski_ro5_violations            AS "num_lipinski_ro5_violations",
+    cs.standard_inchi                         AS "standard_inchi",
+    cs.standard_inchi_key                     AS "standard_inchi_key",
+    cs.canonical_smiles                       AS "canonical_smiles",
+    syn_rc.synonyms                           AS "research_codes",
+    syn_atc.synonyms                          AS "atc_names",
+    syn_ban.synonyms                          AS "ban_names",
+    syn_dcf.synonyms                          AS "dcf_names",
+    syn_enum.synonyms                         AS "e_number",
+    syn_fda.synonyms                          AS "fda_names",
+    syn_inn.synonyms                          AS "inn_names",
+    syn_jan.synonyms                          AS "jan_names",
+    syn_merck.synonyms                        AS "merck_index",
+    syn_nf.synonyms                           AS "national_formulary_names",
+    syn_other.synonyms                        AS "other_names",
+    syn_sys.synonyms                          AS "systematic_names",
+    syn_trade.synonyms                        AS "trade_names",
+    syn_usan.synonyms                         AS "usan_names",
+    syn_usp.synonyms                          AS "usp_names"
+FROM molecule_dictionary md
+LEFT JOIN compound_properties cp ON md.molregno = cp.molregno
+LEFT JOIN compound_structures cs ON md.molregno = cs.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'RESEARCH_CODE'
+) syn_rc ON md.molregno = syn_rc.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'ATC'
+) syn_atc ON md.molregno = syn_atc.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'BAN'
+) syn_ban ON md.molregno = syn_ban.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'DCF'
+) syn_dcf ON md.molregno = syn_dcf.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'E_NUMBER'
+) syn_enum ON md.molregno = syn_enum.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'FDA'
+) syn_fda ON md.molregno = syn_fda.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'INN'
+) syn_inn ON md.molregno = syn_inn.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'JAN'
+) syn_jan ON md.molregno = syn_jan.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'MERCK_INDEX'
+) syn_merck ON md.molregno = syn_merck.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'NATIONAL_FORMULARY'
+) syn_nf ON md.molregno = syn_nf.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'OTHER'
+) syn_other ON md.molregno = syn_other.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'SYSTEMATIC'
+) syn_sys ON md.molregno = syn_sys.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'TRADE_NAME'
+) syn_trade ON md.molregno = syn_trade.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'USAN'
+) syn_usan ON md.molregno = syn_usan.molregno
+LEFT JOIN (
+  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'USP'
+) syn_usp ON md.molregno = syn_usp.molregno
+;

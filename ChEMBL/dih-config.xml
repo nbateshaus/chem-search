@@ -1,0 +1,8 @@
+<dataConfig>
+    <dataSource driver="org.postgresql.Driver" url="jdbc:postgresql://localhost:5432/chembl_20" user="solr" />
+    <document>
+        <entity name="molecule" query="select * from molecule_denormalized">
+            <field column="chembl_id" name="id" />
+        </entity>
+    </document>
+</dataConfig>
