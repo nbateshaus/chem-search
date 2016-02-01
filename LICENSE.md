@@ -1,3 +1,6 @@
+Unless otherwise noted, all files in this directory and all
+subdirectories are distributed under the following license:
+
 The MIT License (MIT)
 
 Copyright (c) 2016 Tamr, Inc.
