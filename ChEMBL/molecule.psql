@@ -8,6 +8,16 @@ SELECT
 FROM molecule_synonyms
 GROUP BY molregno, syn_type;
 
+DROP VIEW IF EXISTS alerts_agg CASCADE;
+CREATE VIEW alerts_agg AS
+SELECT
+    molregno,
+    alert_set_id,
+    array_agg(alert_name) AS alerts
+FROM compound_structural_alerts csa
+  JOIN structural_alerts sa ON (sa.alert_id = csa.alert_id)
+GROUP BY molregno, alert_set_id;
+
 -- Create a JSON object for each row in molecule_dictionary,
 -- denormalizing everything onto it.
 DROP VIEW IF EXISTS molecule_denormalized CASCADE;
@@ -95,7 +105,15 @@ SELECT
     syn_sys.synonyms                          AS "systematic_names",
     syn_trade.synonyms                        AS "trade_names",
     syn_usan.synonyms                         AS "usan_names",
-    syn_usp.synonyms                          AS "usp_names"
+    syn_usp.synonyms                          AS "usp_names",
+    alert_glaxo.alerts                        AS "glaxo_alerts",
+    alert_dundee.alerts                       AS "dundee_alerts",
+    alert_bms.alerts                          AS "bms_alerts",
+    alert_pains.alerts                        AS "pains_alerts",
+    alert_surechembl.alerts                   AS "surechembl_alerts",
+    alert_mlsmr.alerts                        AS "mlsmr_alerts",
+    alert_inpharmatica.alerts                 AS "inpharmatica_alerts",
+    alert_lint.alerts                         AS "lint_alerts"
 FROM molecule_dictionary md
 LEFT JOIN compound_properties cp ON md.molregno = cp.molregno
 LEFT JOIN compound_structures cs ON md.molregno = cs.molregno
@@ -144,4 +162,28 @@ LEFT JOIN (
 LEFT JOIN (
   SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'USP'
 ) syn_usp ON md.molregno = syn_usp.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 1
+) alert_glaxo ON md.molregno = alert_glaxo.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 2
+) alert_dundee ON md.molregno = alert_dundee.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 3
+) alert_bms ON md.molregno = alert_bms.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 4
+) alert_pains ON md.molregno = alert_pains.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 5
+) alert_surechembl ON md.molregno = alert_surechembl.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 6
+) alert_mlsmr ON md.molregno = alert_mlsmr.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 7
+) alert_inpharmatica ON md.molregno = alert_inpharmatica.molregno
+LEFT JOIN (
+  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 8
+) alert_lint ON md.molregno = alert_lint.molregno
 ;

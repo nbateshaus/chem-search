@@ -45,7 +45,7 @@
     that avoids logging every request
 -->
 
-<schema name="example-data-driven-schema" version="1.5">
+<schema name="chembl_20" version="1.5">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and
        semantics.  It should not normally be changed by applications.
@@ -116,7 +116,6 @@
   WARNING: The _text_ catch-all field will significantly increase your index size.
            If you don't need it, consider removing it and the corresponding copyField directive.
       -->
-    <field name="chembl_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
     <field name="_root_" type="string" indexed="true" stored="false"/>
     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
@@ -128,7 +127,7 @@
     <field name="availability_type" type="text_en" />
     <field name="black_box_warning" type="boolean" />
     <field name="chebi_id" type="tint" />
-    <field name="chembl_id" type="string" />
+    <field name="chembl_id" type="string" required="true" />
     <field name="chirality" type="string" />
     <field name="dosed_ingredient" type="boolean" />
     <field name="first_approval" type="tint" />
@@ -192,7 +191,14 @@
     <field name="trade_names" type="text_en" multiValued="true" />
     <field name="usan_names" type="text_en" multiValued="true" />
     <field name="usp_names" type="text_en" multiValued="true" />
-
+    <field name="glaxo_alerts" type="text_en" multiValued="true" />
+    <field name="dundee_alerts" type="text_en" multiValued="true" />
+    <field name="bms_alerts" type="text_en" multiValued="true" />
+    <field name="pains_alerts" type="text_en" multiValued="true" />
+    <field name="surechembl_alerts" type="text_en" multiValued="true" />
+    <field name="mlsmr_alerts" type="text_en" multiValued="true" />
+    <field name="inpharmatica_alerts" type="text_en" multiValued="true" />
+    <field name="lint_alerts" type="text_en" multiValued="true" />
 
     <!-- Dynamic field definitions allow using convention over configuration
        for fields via the specification of patterns to match field names.
@@ -256,7 +262,7 @@
   <!-- Field to use to determine and enforce document uniqueness.
       Unless this field is marked with required="false", it will be a required field
    -->
-  <uniqueKey>id</uniqueKey>
+  <uniqueKey>chembl_id</uniqueKey>
 
   <!-- copyField commands copy one field to another at the time a document
        is added to the index.  It's used either to index the same field differently,
