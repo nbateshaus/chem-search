@@ -124,7 +124,7 @@
     <!--
       NBH 2016-01-30: These are things that should have been added automatically, but weren't.
       -->
-    <field name="availability_type" type="text_en" />
+    <field name="availability_type" type="string" />
     <field name="black_box_warning" type="boolean" />
     <field name="chebi_id" type="tint" />
     <field name="chembl_id" type="string" required="true" />
@@ -176,29 +176,30 @@
     <field name="standard_inchi" type="text_en" />
     <field name="standard_inchi_key" type="string" />
     <field name="canonical_smiles" type="string" />
-    <field name="research_codes" type="text_en" multiValued="true" />
-    <field name="atc_names" type="text_en" multiValued="true" />
-    <field name="ban_names" type="text_en" multiValued="true" />
-    <field name="dcf_names" type="text_en" multiValued="true" />
-    <field name="e_number" type="text_en" multiValued="true" />
-    <field name="fda_names" type="text_en" multiValued="true" />
-    <field name="inn_names" type="text_en" multiValued="true" />
-    <field name="jan_names" type="text_en" multiValued="true" />
-    <field name="merck_index" type="text_en" multiValued="true" />
-    <field name="national_formulary_names" type="text_en" multiValued="true" />
-    <field name="other_names" type="text_en" multiValued="true" />
-    <field name="systematic_names" type="text_en" multiValued="true" />
-    <field name="trade_names" type="text_en" multiValued="true" />
-    <field name="usan_names" type="text_en" multiValued="true" />
-    <field name="usp_names" type="text_en" multiValued="true" />
-    <field name="glaxo_alerts" type="text_en" multiValued="true" />
-    <field name="dundee_alerts" type="text_en" multiValued="true" />
-    <field name="bms_alerts" type="text_en" multiValued="true" />
-    <field name="pains_alerts" type="text_en" multiValued="true" />
-    <field name="surechembl_alerts" type="text_en" multiValued="true" />
-    <field name="mlsmr_alerts" type="text_en" multiValued="true" />
-    <field name="inpharmatica_alerts" type="text_en" multiValued="true" />
-    <field name="lint_alerts" type="text_en" multiValued="true" />
+    <field name="helm_notation" type="string" />
+    <field name="research_codes" type="string" multiValued="true" />
+    <field name="atc_names" type="string" multiValued="true" />
+    <field name="ban_names" type="string" multiValued="true" />
+    <field name="dcf_names" type="string" multiValued="true" />
+    <field name="e_number" type="string" multiValued="true" />
+    <field name="fda_names" type="string" multiValued="true" />
+    <field name="inn_names" type="string" multiValued="true" />
+    <field name="jan_names" type="string" multiValued="true" />
+    <field name="merck_index" type="string" multiValued="true" />
+    <field name="national_formulary_names" type="string" multiValued="true" />
+    <field name="other_names" type="string" multiValued="true" />
+    <field name="systematic_names" type="string" multiValued="true" />
+    <field name="trade_names" type="string" multiValued="true" />
+    <field name="usan_names" type="string" multiValued="true" />
+    <field name="usp_names" type="string" multiValued="true" />
+    <field name="glaxo_alerts" type="string" multiValued="true" />
+    <field name="dundee_alerts" type="string" multiValued="true" />
+    <field name="bms_alerts" type="string" multiValued="true" />
+    <field name="pains_alerts" type="string" multiValued="true" />
+    <field name="surechembl_alerts" type="string" multiValued="true" />
+    <field name="mlsmr_alerts" type="string" multiValued="true" />
+    <field name="inpharmatica_alerts" type="string" multiValued="true" />
+    <field name="lint_alerts" type="string" multiValued="true" />
 
     <!-- Dynamic field definitions allow using convention over configuration
        for fields via the specification of patterns to match field names.

@@ -91,6 +91,7 @@ SELECT
     cs.standard_inchi                         AS "standard_inchi",
     cs.standard_inchi_key                     AS "standard_inchi_key",
     cs.canonical_smiles                       AS "canonical_smiles",
+    bt.helm_notation                          AS "helm_notation",
     syn_rc.synonyms                           AS "research_codes",
     syn_atc.synonyms                          AS "atc_names",
     syn_ban.synonyms                          AS "ban_names",
@@ -117,6 +118,7 @@ SELECT
 FROM molecule_dictionary md
 LEFT JOIN compound_properties cp ON md.molregno = cp.molregno
 LEFT JOIN compound_structures cs ON md.molregno = cs.molregno
+LEFT JOIN biotherapeutics bt     ON md.molregno = bt.molregno
 LEFT JOIN (
   SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'RESEARCH_CODE'
 ) syn_rc ON md.molregno = syn_rc.molregno
