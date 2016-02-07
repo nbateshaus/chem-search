@@ -3,19 +3,18 @@ import re
 from collections import namedtuple
 
 # this is almost a validating expression, it could certainly be simpler by just using [^/]* inside the groups
-# FIX: I'm really not sure what the * means in the below
-chargeDef = r"(/q[\-\+0-9;m\*]*)?"  # CHECK: I'm really not sure what the m means, but it can appear (see an example in the doctests below with /q-1;m)
+chargeDef = r"(/q[\-\+0-9;\*mMnNi]*)?"
 protonationDef = r"(/p[\-\+0-9,;]*)?"
-isotopeDef = r"(/i[\-\+0-9,;HDT]*(?:/h[0-9HDT]+)*)?" # CHECK: I'm not sure what the /h layer here means
-stereoBondDef=r"(/b[\-\+0-9,\?\*;m]*)?" # CHECK: I'm really not sure what the m means
-stereoTetDef=r"(/t[\-\+0-9,\?;\*mM]*)?" # CHECK: I'm really not sure what the m or M means
+isotopeDef = r"(/i[\-\+0-9,;HDT]*(?:/h[0-9HDT]+)*)?"
+stereoBondDef=r"(/b[\-\+0-9,\?\*;mNnNi]*)?"
+stereoTetDef=r"(/t[\-\+0-9,\?;\*mMnNi]*)?"
 stereoMDef=r"(/m[\-\+0-9,;\.]*)?"
 stereoSDef=r"(/s[\-\+0-9,;]*)?"
 inchiLayers=(
 r"(InChI=1S?)",
 r"(/[a-zA-Z0-9\.]*)", # formula
 r"(/c[0-9\(\)\-\,\*;]*)?", # skeleton
-r"(/h[0-9,\-\Hh\*\(\);]*)?", # hydrogens  CHECK: I'm really not sure what the h means
+r"(/h[0-9,\-\Hh\*\(\);]*)?", # hydrogens
 chargeDef, # charge
 protonationDef, # protonation
 stereoBondDef, # stereo_bond
