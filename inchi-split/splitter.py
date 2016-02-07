@@ -39,13 +39,14 @@ stereoBondDef, #fixedh_isotope_stereo_bond
 stereoTetDef, #fixedh_isotope_stereo_tet
 stereoMDef, #fixedh_isotope_stereo_m
 stereoSDef, #fixedh_isotope_stereo_s
-
+r"(/r.*)?", # reconnected_main # <- FIX: we punt on this
 )
 coreExpr=re.compile(''.join(inchiLayers))
 Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens','charge','protonation','stereo_bond','stereo_tet','stereo_m','stereo_s',
                             'isotope','isotope_stereo_bond','isotope_stereo_tet','isotope_stereo_m','isotope_stereo_s',
                             'fixedh','fixedh_charge','fixedh_protonation','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
-                            'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s'
+                            'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s',
+                            'reconnected_main'
                             ])
 def extractLayers(inchi):
     """
@@ -229,8 +230,8 @@ def extractLayers(inchi):
             res.append(e[1:])
         else:
             res.append(e)
-
-    return Layers(*res)
+    res = Layers(*res)
+    return res
 
 if __name__=='__main__':
     import doctest
