@@ -39,6 +39,7 @@ stereoBondDef, #fixedh_isotope_stereo_bond
 stereoTetDef, #fixedh_isotope_stereo_tet
 stereoMDef, #fixedh_isotope_stereo_m
 stereoSDef, #fixedh_isotope_stereo_s
+r"(/o[\(\)0-9,]*)?", # transposition
 r"(/r.*)?", # reconnected_main # <- FIX: we punt on this
 )
 coreExpr=re.compile(''.join(inchiLayers))
@@ -46,6 +47,7 @@ Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens','charge','p
                             'isotope','isotope_stereo_bond','isotope_stereo_tet','isotope_stereo_m','isotope_stereo_s',
                             'fixedh','fixedh_charge','fixedh_protonation','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
                             'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s',
+                            'transposition',
                             'reconnected_main'
                             ])
 def extractLayers(inchi):
@@ -195,6 +197,12 @@ def extractLayers(inchi):
     'b11-5-,17-13?,20-14?'
     >>> tpl.fixedh_isotope_stereo_bond
     'b11-5-,12-6-,17-13?,20-14?'
+
+    Transposition:
+        From the InChI tech manual Fig A3-3
+    >>> tpl = extractLayers('InChI=1/2CH2O2/c2*2-1-3/h2*1H,(H,2,3)/i2+1;2-1/f/h2*2H/i3-1;2+1/o(1,2)')
+    >>> tpl.transposition
+    'o(1,2)'
 
 
     Edge cases:
