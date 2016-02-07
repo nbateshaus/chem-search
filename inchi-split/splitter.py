@@ -20,17 +20,23 @@ r"(/t[\-\+0-9,\?;]*)?", #isotope_stereo_tet  FIX: probably could be tightened up
 r"(/m[\-\+0-9,;]*)?", #isotope_stereo_m    FIX: probably could be tightened up
 r"(/s[\-\+0-9,;]*)?", #isotope_stereo_s    FIX: probably could be tightened up
 r"(/f/h[0-9,\-\H\(\);]*)?", # fixed_h
-r"(/i[\-\+0-9,;]*)?", #fixedh_isotope
 r"(/b[\-\+0-9,\?;]*)?", #fixedh_stereo_bond
 r"(/t[\-\+0-9,\?;]*)?", #fixedh_stereo_tet  FIX: probably could be tightened up
 r"(/m[\-\+0-9,;]*)?", #fixedh_stereo_m    FIX: probably could be tightened up
 r"(/s[\-\+0-9,;]*)?", #fixedh_stereo_s    FIX: probably could be tightened up
+r"(/i[\-\+0-9,;]*)?", #fixedh_isotope
+r"(/b[\-\+0-9,\?;]*)?", #fixedh_isotope_stereo_bond
+r"(/t[\-\+0-9,\?;]*)?", #fixedh_isotope_stereo_tet  FIX: probably could be tightened up
+r"(/m[\-\+0-9,;]*)?", #fixedh_isotope_stereo_m    FIX: probably could be tightened up
+r"(/s[\-\+0-9,;]*)?", #fixedh_isotope_stereo_s    FIX: probably could be tightened up
 
 )
 coreExpr=re.compile(''.join(inchiLayers))
 Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens','charge','protonation','stereo_bond','stereo_tet','stereo_m','stereo_s',
                             'isotope','isotope_stereo_bond','isotope_stereo_tet','isotope_stereo_m','isotope_stereo_s',
-                            'fixedh','fixedh_isotope','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s'])
+                            'fixedh','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
+                            'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s'
+                            ])
 def extractLayers(inchi):
     """
 
@@ -153,6 +159,21 @@ def extractLayers(inchi):
     't;4-,5-'
     >>> tpl.fixedh_stereo_bond
     'b3-1+,6-2-,12-8?;'
+
+    Fixed Hs causes stereo + (FixedHs + isotopes) causes stereo (this is the most dependent example I can think of)
+        From: N=C(NC)C(/C(=NC)N)=C/CC/C=C(/C1=NC=C[15NH]1)C1NC=C[15N]=1
+    >>> tpl = extractLayers('InChI=1/C16H22N8/c1-19-13(17)11(14(18)20-2)5-3-4-6-12(15-21-7-8-22-15)16-23-9-10-24-16/h5-10H,3-4H2,1-2H3,(H2,17,19)(H2,18,20)(H,21,22)(H,23,24)/i21+1,23+1/f/h17,19,21,23H,18H2/b11-5-,17-13?,20-14?/i21+1,24+1/b11-5-,12-6-,17-13?,20-14?')
+    >>> tpl.isotope
+    'i21+1,23+1'
+    >>> tpl.isotope_stereo_bond
+    ''
+    >>> tpl.fixedh
+    'f/h17,19,21,23H,18H2'
+    >>> tpl.fixedh_stereo_bond
+    'b11-5-,17-13?,20-14?'
+    >>> tpl.fixedh_isotope_stereo_bond
+    'b11-5-,12-6-,17-13?,20-14?'
+
 
     Edge cases:
     >>> tpl=extractLayers('InChI=1S/H2/h1H')
