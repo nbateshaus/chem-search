@@ -6,19 +6,19 @@ from collections import namedtuple
 inchiLayers=(
 r"(InChI=1S?)",
 r"(/[a-zA-Z0-9\.]*)", # formula
-r"(/c[0-9\(\)\-\,]*)?", # skeleton
-r"(/h[0-9,\-\H\(\)]*)?", # hydrogens
-r"(/q[\-\+0-9]*)?", # charge
-r"(/p[\-\+0-9,]*)?", # protonation
-r"(/b[\-\+0-9,\?]*)?", # stereo_bond
-r"(/t[\-\+0-9,\?]*)?", #stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,]*)?", #stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,]*)?", #stereo_s    FIX: probably could be tightened up
-r"(/f/h[0-9,\-\H\(\)]*)?", # fixed_h
-r"(/b[\-\+0-9,\?]*)?", #fixed_h_stereo_bond
-r"(/t[\-\+0-9,\?]*)?", #fixedh_stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,]*)?", #fixedh_stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,]*)?", #fixedh_stereo_s    FIX: probably could be tightened up
+r"(/c[0-9\(\)\-\,;]*)?", # skeleton
+r"(/h[0-9,\-\H\(\);]*)?", # hydrogens
+r"(/q[\-\+0-9;]*)?", # charge
+r"(/p[\-\+0-9,;]*)?", # protonation
+r"(/b[\-\+0-9,\?;]*)?", # stereo_bond
+r"(/t[\-\+0-9,\?;]*)?", #stereo_tet  FIX: probably could be tightened up
+r"(/m[\-\+0-9,;]*)?", #stereo_m    FIX: probably could be tightened up
+r"(/s[\-\+0-9,;]*)?", #stereo_s    FIX: probably could be tightened up
+r"(/f/h[0-9,\-\H\(\);]*)?", # fixed_h
+r"(/b[\-\+0-9,\?;]*)?", #fixedh_stereo_bond
+r"(/t[\-\+0-9,\?;]*)?", #fixedh_stereo_tet  FIX: probably could be tightened up
+r"(/m[\-\+0-9,;]*)?", #fixedh_stereo_m    FIX: probably could be tightened up
+r"(/s[\-\+0-9,;]*)?", #fixedh_stereo_s    FIX: probably could be tightened up
 
 )
 coreExpr=re.compile(''.join(inchiLayers))
