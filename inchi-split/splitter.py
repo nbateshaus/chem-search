@@ -3,38 +3,48 @@ import re
 from collections import namedtuple
 
 # this is almost a validating expression, it could certainly be simpler by just using [^/]* inside the groups
+# FIX: I'm really not sure what the * means in the below
+chargeDef = r"(/q[\-\+0-9;m\*]*)?"  # CHECK: I'm really not sure what the m means, but it can appear (see an example in the doctests below with /q-1;m)
+protonationDef = r"(/p[\-\+0-9,;]*)?"
+isotopeDef = r"(/i[\-\+0-9,;HDT]*(?:/h[0-9HDT]+)*)?" # CHECK: I'm not sure what the /h layer here means
+stereoBondDef=r"(/b[\-\+0-9,\?\*;m]*)?" # CHECK: I'm really not sure what the m means
+stereoTetDef=r"(/t[\-\+0-9,\?;\*mM]*)?" # CHECK: I'm really not sure what the m or M means
+stereoMDef=r"(/m[\-\+0-9,;\.]*)?"
+stereoSDef=r"(/s[\-\+0-9,;]*)?"
 inchiLayers=(
 r"(InChI=1S?)",
 r"(/[a-zA-Z0-9\.]*)", # formula
-r"(/c[0-9\(\)\-\,;]*)?", # skeleton
-r"(/h[0-9,\-\H\(\);]*)?", # hydrogens
-r"(/q[\-\+0-9;]*)?", # charge
-r"(/p[\-\+0-9,;]*)?", # protonation
-r"(/b[\-\+0-9,\?;]*)?", # stereo_bond
-r"(/t[\-\+0-9,\?;]*)?", #stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,;]*)?", #stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,;]*)?", #stereo_s    FIX: probably could be tightened up
-r"(/i[\-\+0-9,;]*)?", #isotope
-r"(/b[\-\+0-9,\?;]*)?", #isotope_stereo_bond
-r"(/t[\-\+0-9,\?;]*)?", #isotope_stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,;]*)?", #isotope_stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,;]*)?", #isotope_stereo_s    FIX: probably could be tightened up
-r"(/f/h[0-9,\-\H\(\);]*)?", # fixed_h
-r"(/b[\-\+0-9,\?;]*)?", #fixedh_stereo_bond
-r"(/t[\-\+0-9,\?;]*)?", #fixedh_stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,;]*)?", #fixedh_stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,;]*)?", #fixedh_stereo_s    FIX: probably could be tightened up
-r"(/i[\-\+0-9,;]*)?", #fixedh_isotope
-r"(/b[\-\+0-9,\?;]*)?", #fixedh_isotope_stereo_bond
-r"(/t[\-\+0-9,\?;]*)?", #fixedh_isotope_stereo_tet  FIX: probably could be tightened up
-r"(/m[\-\+0-9,;]*)?", #fixedh_isotope_stereo_m    FIX: probably could be tightened up
-r"(/s[\-\+0-9,;]*)?", #fixedh_isotope_stereo_s    FIX: probably could be tightened up
+r"(/c[0-9\(\)\-\,\*;]*)?", # skeleton
+r"(/h[0-9,\-\Hh\*\(\);]*)?", # hydrogens  CHECK: I'm really not sure what the h means
+chargeDef, # charge
+protonationDef, # protonation
+stereoBondDef, # stereo_bond
+stereoTetDef, #stereo_tet
+stereoMDef, #stereo_m
+stereoSDef, #stereo_s
+isotopeDef, #isotope
+stereoBondDef, #isotope_stereo_bond
+stereoTetDef, #isotope_stereo_tet
+stereoMDef, #isotope_stereo_m
+stereoSDef, #isotope_stereo_s
+r"(/f[a-zA-Z0-9\.]*(?:/h[0-9,\-\Hh\*\(\);]*)?)?", # fixed_h
+chargeDef, # fixedh_charge
+protonationDef, # fixedh_protonation
+stereoBondDef, #fixedh_stereo_bond
+stereoTetDef, #fixedh_stereo_tet
+stereoMDef, #fixedh_stereo_m
+stereoSDef, #fixedh_stereo_s
+isotopeDef, #fixedh_isotope
+stereoBondDef, #fixedh_isotope_stereo_bond
+stereoTetDef, #fixedh_isotope_stereo_tet
+stereoMDef, #fixedh_isotope_stereo_m
+stereoSDef, #fixedh_isotope_stereo_s
 
 )
 coreExpr=re.compile(''.join(inchiLayers))
 Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens','charge','protonation','stereo_bond','stereo_tet','stereo_m','stereo_s',
                             'isotope','isotope_stereo_bond','isotope_stereo_tet','isotope_stereo_m','isotope_stereo_s',
-                            'fixedh','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
+                            'fixedh','fixedh_charge','fixedh_protonation','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
                             'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s'
                             ])
 def extractLayers(inchi):
@@ -147,6 +157,17 @@ def extractLayers(inchi):
     'f/h9,11H,10H2'
     >>> tpl.fixedh_stereo_tet
     't4-,5+'
+
+    Fixed Hs cause a new formula
+        From: C[C@H](CCC[C@@H](SCCC(C)(C)O)c1cccc(\C=C\c2ccc3ccc(Cl)cc3n2)c1)C(=O)[O-]  # from ChEMBL
+    >>> tpl = extractLayers('InChI=1/C29H34ClNO3S/c1-20(28(32)33)6-4-9-27(35-17-16-29(2,3)34)23-8-5-7-21(18-23)10-14-25-15-12-22-11-13-24(30)19-26(22)31-25/h5,7-8,10-15,18-20,27,34H,4,6,9,16-17H2,1-3H3,(H,32,33)/p-1/b14-10+/t20-,27-/m1/s1/fC29H33ClNO3S/q-1')
+    >>> tpl.formula
+    'C29H34ClNO3S'
+    >>> tpl.fixedh
+    'fC29H33ClNO3S'
+    >>> tpl.fixedh_charge
+    'q-1'
+
 
     Disconnected parts + Fixed Hs causes stereo_bond + isotopes cause stereo
         From: [13CH3][C@H](C)O[C@H](C)O.F[C@H](Cl)/C=C/C=C(/CC(O)=N)CC(=O)N
