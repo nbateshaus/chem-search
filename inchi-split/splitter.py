@@ -76,11 +76,11 @@ def chargeGrouping(tpl):
 def stereoGrouping(tpl):
     return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo'])
 def isotopeGrouping(tpl):
-    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['isotope'][0])
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['isotope'][0:1])
 def isotopestereoGrouping(tpl):
     return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['isotope'])
 def stereo_isotopeGrouping(tpl):
-    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo']+layerGroups['isotope'][0])
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo']+layerGroups['isotope'][0:1])
 def stereo_isotopestereoGrouping(tpl):
     return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo']+layerGroups['isotope'])
 
