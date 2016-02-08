@@ -42,13 +42,50 @@ r"(/o[\(\)0-9,]*)?", # transposition
 r"(/r.*)?", # reconnected_main # <- FIX: we punt on this
 )
 coreExpr=re.compile(''.join(inchiLayers))
-Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens','charge','protonation','stereo_bond','stereo_tet','stereo_m','stereo_s',
+Layers=namedtuple("Layers",['start','formula','skeleton','hydrogens',
+                            # pos 4
+                            'charge','protonation',
+                            # pos 6
+                            'stereo_bond','stereo_tet','stereo_m','stereo_s',
+                            # pos 10
                             'isotope','isotope_stereo_bond','isotope_stereo_tet','isotope_stereo_m','isotope_stereo_s',
-                            'fixedh','fixedh_charge','fixedh_protonation','fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
+                            # pos 15
+                            'fixedh','fixedh_charge','fixedh_protonation',
+                            # pos 18
+                            'fixedh_stereo_bond','fixedh_stereo_tet','fixedh_stereo_m','fixedh_stereo_s',
+                            # pos 22
                             'fixedh_isotope','fixedh_isotope_stereo_bond','fixedh_isotope_stereo_tet','fixedh_isotope_stereo_m','fixedh_isotope_stereo_s',
+                            # pos 27
                             'transposition',
                             'reconnected_main'
                             ])
+layerGroups = {
+'main':tuple(range(4)),
+'charge':tuple(range(4,6)),
+'stereo':tuple(range(6,10)),
+'isotope':tuple(range(10,15)),
+'fixedh':tuple(range(15,27)),
+}
+
+def formulaGrouping(tpl):
+    return (tpl[0],tpl[1],)
+def mainGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main'])
+def chargeGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge'])
+def stereoGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo'])
+def isotopeGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['isotope'][0])
+def isotopestereoGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['isotope'])
+def stereo_isotopeGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo']+layerGroups['isotope'][0])
+def stereo_isotopestereoGrouping(tpl):
+    return (tpl[x] for x in layerGroups['main']+layerGroups['charge']+layerGroups['stereo']+layerGroups['isotope'])
+
+
+
 def extractLayers(inchi):
     """
 
