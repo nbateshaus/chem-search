@@ -1,7 +1,132 @@
 <dataConfig>
     <dataSource driver="org.postgresql.Driver" url="jdbc:postgresql://localhost:5432/chembl_20" user="solr" />
     <document>
-        <entity name="molecule" query="select * from molecule_denormalized">
-        </entity>
+        <entity name="molecule" pk="molregno" query="select * from molecule_denormalized">
+          <entity name="syn_rc" query="select synonyms from molecule_synonyms where syn_type='RESEARCH_CODE' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="research_codes" />
+          </entity>
+          <entity name="syn_atc" query="select synonyms from molecule_synonyms where syn_type='ATC' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="atc_names" />
+          </entity>
+          <entity name="syn_ban" query="select synonyms from molecule_synonyms where syn_type='BAN' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="ban_names" />
+          </entity>
+          <entity name="syn_dcf" query="select synonyms from molecule_synonyms where syn_type='DCF' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="dcf_names" />
+          </entity>
+          <entity name="syn_e" query="select synonyms from molecule_synonyms where syn_type='E_NUMBER' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="e_number" />
+          </entity>
+          <entity name="syn_fda" query="select synonyms from molecule_synonyms where syn_type='FDA' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="fda_names" />
+          </entity>
+          <entity name="syn_inn" query="select synonyms from molecule_synonyms where syn_type='INN' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="inn_names" />
+          </entity>
+          <entity name="syn_jan" query="select synonyms from molecule_synonyms where syn_type='JAN' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="jan_names" />
+          </entity>
+          <entity name="syn_merck" query="select synonyms from molecule_synonyms where syn_type='MERCK_INDEX' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="merck_index" />
+          </entity>
+          <entity name="syn_nf" query="select synonyms from molecule_synonyms where syn_type='NATIONAL_FORMULARY' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="national_formulary_names" />
+          </entity>
+          <entity name="syn_other" query="select synonyms from molecule_synonyms where syn_type='OTHER' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="other_names" />
+          </entity>
+          <entity name="syn_sys" query="select synonyms from molecule_synonyms where syn_type='SYSTEMATIC' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="systematic_names" />
+          </entity>
+          <entity name="syn_trade" query="select synonyms from molecule_synonyms where syn_type='TRADE_NAME' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="trade_names" />
+          </entity>
+          <entity name="syn_usan" query="select synonyms from molecule_synonyms where syn_type='USAN' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="usan_names" />
+          </entity>
+          <entity name="syn_usp" query="select synonyms from molecule_synonyms where syn_type='USP' and molregno='${molecule.molregno}'">
+            <field column="synonyms" name="usp_names" />
+          </entity>
+          <entity name="alert_glaxo" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 1
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="glaxo_alerts" />
+          </entity>
+          <entity name="alert_dundee" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 2
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="dundee_alerts" />
+          </entity>
+          <entity name="alert_bms" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 3
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="bms_alerts" />
+          </entity>
+          <entity name="alert_pains" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 4
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="pains_alerts" />
+          </entity>
+          <entity name="alert_surechembl" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 5
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="surechembl_alerts" />
+          </entity>
+          <entity name="alert_mlsmr" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 6
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="mlsmr_alerts" />
+          </entity>
+          <entity name="alert_inpharmatica" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 7
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="inpharmatica_alerts" />
+          </entity>
+          <entity name="alert_lint" query="
+              SELECT alert_name
+              FROM compound_structural_alerts csa
+              JOIN structural_alerts sa
+                ON (sa.alert_id = csa.alert_id)
+              WHERE sa.alert_set_id = 8
+                AND csa.molregno = '${molecule.molregno}'
+              ">
+            <field column="alert_name" name="lint_alerts" />
+          </entity>
+      </entity>
     </document>
 </dataConfig>

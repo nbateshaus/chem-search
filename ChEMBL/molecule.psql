@@ -23,6 +23,7 @@ GROUP BY molregno, alert_set_id;
 DROP VIEW IF EXISTS molecule_denormalized CASCADE;
 CREATE VIEW molecule_denormalized AS
 SELECT
+    md.molregno                               AS "molregno",
     CASE md.availability_type
       -- -1 appears in the data; let it go to NULL
       WHEN 0 THEN 'discontinued'
@@ -91,101 +92,10 @@ SELECT
     cs.standard_inchi                         AS "standard_inchi",
     cs.standard_inchi_key                     AS "standard_inchi_key",
     cs.canonical_smiles                       AS "canonical_smiles",
-    bt.helm_notation                          AS "helm_notation",
-    syn_rc.synonyms                           AS "research_codes",
-    syn_atc.synonyms                          AS "atc_names",
-    syn_ban.synonyms                          AS "ban_names",
-    syn_dcf.synonyms                          AS "dcf_names",
-    syn_enum.synonyms                         AS "e_number",
-    syn_fda.synonyms                          AS "fda_names",
-    syn_inn.synonyms                          AS "inn_names",
-    syn_jan.synonyms                          AS "jan_names",
-    syn_merck.synonyms                        AS "merck_index",
-    syn_nf.synonyms                           AS "national_formulary_names",
-    syn_other.synonyms                        AS "other_names",
-    syn_sys.synonyms                          AS "systematic_names",
-    syn_trade.synonyms                        AS "trade_names",
-    syn_usan.synonyms                         AS "usan_names",
-    syn_usp.synonyms                          AS "usp_names",
-    alert_glaxo.alerts                        AS "glaxo_alerts",
-    alert_dundee.alerts                       AS "dundee_alerts",
-    alert_bms.alerts                          AS "bms_alerts",
-    alert_pains.alerts                        AS "pains_alerts",
-    alert_surechembl.alerts                   AS "surechembl_alerts",
-    alert_mlsmr.alerts                        AS "mlsmr_alerts",
-    alert_inpharmatica.alerts                 AS "inpharmatica_alerts",
-    alert_lint.alerts                         AS "lint_alerts"
+    bt.helm_notation                          AS "helm_notation"
 FROM molecule_dictionary md
 LEFT JOIN compound_properties cp ON md.molregno = cp.molregno
 LEFT JOIN compound_structures cs ON md.molregno = cs.molregno
 LEFT JOIN biotherapeutics bt     ON md.molregno = bt.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'RESEARCH_CODE'
-) syn_rc ON md.molregno = syn_rc.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'ATC'
-) syn_atc ON md.molregno = syn_atc.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'BAN'
-) syn_ban ON md.molregno = syn_ban.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'DCF'
-) syn_dcf ON md.molregno = syn_dcf.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'E_NUMBER'
-) syn_enum ON md.molregno = syn_enum.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'FDA'
-) syn_fda ON md.molregno = syn_fda.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'INN'
-) syn_inn ON md.molregno = syn_inn.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'JAN'
-) syn_jan ON md.molregno = syn_jan.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'MERCK_INDEX'
-) syn_merck ON md.molregno = syn_merck.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'NATIONAL_FORMULARY'
-) syn_nf ON md.molregno = syn_nf.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'OTHER'
-) syn_other ON md.molregno = syn_other.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'SYSTEMATIC'
-) syn_sys ON md.molregno = syn_sys.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'TRADE_NAME'
-) syn_trade ON md.molregno = syn_trade.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'USAN'
-) syn_usan ON md.molregno = syn_usan.molregno
-LEFT JOIN (
-  SELECT molregno, synonyms FROM synonyms_agg WHERE syn_type = 'USP'
-) syn_usp ON md.molregno = syn_usp.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 1
-) alert_glaxo ON md.molregno = alert_glaxo.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 2
-) alert_dundee ON md.molregno = alert_dundee.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 3
-) alert_bms ON md.molregno = alert_bms.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 4
-) alert_pains ON md.molregno = alert_pains.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 5
-) alert_surechembl ON md.molregno = alert_surechembl.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 6
-) alert_mlsmr ON md.molregno = alert_mlsmr.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 7
-) alert_inpharmatica ON md.molregno = alert_inpharmatica.molregno
-LEFT JOIN (
-  SELECT molregno, alerts FROM alerts_agg WHERE alert_set_id = 8
-) alert_lint ON md.molregno = alert_lint.molregno
 ;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO solr;
