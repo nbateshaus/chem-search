@@ -7,10 +7,10 @@
 <entry key="authored-by" type="xstring" value="nik"/>
 <entry key="authored-when" type="xstring" value="2016-02-11 15:57:21 -0500"/>
 <entry key="lastEdited-by" type="xstring" value="nik"/>
-<entry key="lastEdited-when" type="xstring" value="2016-02-16 16:32:43 -0500"/>
+<entry key="lastEdited-when" type="xstring" value="2016-02-17 11:40:10 -0500"/>
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
-<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="state" type="xstring" value="IDLE"/>
 <config key="workflow_credentials"/>
 <config key="nodes">
 <config key="node_1">
