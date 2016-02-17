@@ -20,7 +20,7 @@
 <entry key="SettingsModelID" type="xstring" value="SMID_boolean"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
-<entry key="remove_source_columns" type="xboolean" value="false"/>
+<entry key="remove_source_columns" type="xboolean" value="true"/>
 </config>
 <config key="nodeAnnotation">
 <entry key="text" type="xstring" value="RDKit SMILES"/>
