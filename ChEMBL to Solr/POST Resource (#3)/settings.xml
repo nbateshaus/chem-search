@@ -88,7 +88,7 @@
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
-<entry key="URL_TEXT_KEY" type="xstring" value="http://localhost:8983/solr/chembl_20/update?commit=true"/>
+<entry key="URL_TEXT_KEY" type="xstring" value="http://localhost:8983/solr/chem-search/update?commit=true"/>
 <config key="URL_COL_KEY_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="false"/>
