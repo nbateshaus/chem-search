@@ -17,7 +17,7 @@
 <entry key="extractCTab" type="xboolean" value="false"/>
 <entry key="extractCounts" type="xboolean" value="false"/>
 <entry key="sourceLocationColumn" type="xboolean" value="false"/>
-<entry key="limitMolecules" type="xboolean" value="true"/>
+<entry key="limitMolecules" type="xboolean" value="false"/>
 <entry key="limit" type="xint" value="1"/>
 <entry key="extractAllProperties" type="xboolean" value="false"/>
 <config key="properties">

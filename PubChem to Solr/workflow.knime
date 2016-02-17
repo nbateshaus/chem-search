@@ -7,7 +7,7 @@
 <entry key="authored-by" type="xstring" value="nik"/>
 <entry key="authored-when" type="xstring" value="2016-02-08 11:18:28 -0500"/>
 <entry key="lastEdited-by" type="xstring" value="nik"/>
-<entry key="lastEdited-when" type="xstring" value="2016-02-17 12:49:41 -0500"/>
+<entry key="lastEdited-when" type="xstring" value="2016-02-17 14:22:20 -0500"/>
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
 <entry key="state" type="xstring" value="IDLE"/>
@@ -221,6 +221,22 @@
 </config>
 </config>
 </config>
+<config key="node_16">
+<entry key="id" type="xint" value="16"/>
+<entry key="node_settings_file" type="xstring" value="Java Snippet _simple_ (#16)/settings.xml"/>
+<entry key="node_is_meta" type="xboolean" value="false"/>
+<entry key="node_type" type="xstring" value="NativeNode"/>
+<entry key="ui_classname" type="xstring" value="org.knime.core.node.workflow.NodeUIInformation"/>
+<config key="ui_settings">
+<config key="extrainfo.node.bounds">
+<entry key="array-size" type="xint" value="4"/>
+<entry key="0" type="xint" value="564"/>
+<entry key="1" type="xint" value="197"/>
+<entry key="2" type="xint" value="74"/>
+<entry key="3" type="xint" value="89"/>
+</config>
+</config>
+</config>
 </config>
 <config key="connections">
 <config key="connection_0">
@@ -297,7 +313,7 @@
 </config>
 <config key="connection_8">
 <entry key="sourceID" type="xint" value="12"/>
-<entry key="destID" type="xint" value="7"/>
+<entry key="destID" type="xint" value="16"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
@@ -316,6 +332,12 @@
 <config key="connection_11">
 <entry key="sourceID" type="xint" value="15"/>
 <entry key="destID" type="xint" value="5"/>
+<entry key="sourcePort" type="xint" value="1"/>
+<entry key="destPort" type="xint" value="1"/>
+</config>
+<config key="connection_12">
+<entry key="sourceID" type="xint" value="16"/>
+<entry key="destID" type="xint" value="7"/>
 <entry key="sourcePort" type="xint" value="1"/>
 <entry key="destPort" type="xint" value="1"/>
 </config>
