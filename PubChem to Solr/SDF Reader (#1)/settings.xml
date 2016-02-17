@@ -10,15 +10,15 @@
 <entry key="array-size" type="xint" value="1"/>
 <entry key="0" type="xstring" value="file:/Users/nik/Data/PubChem/Compound_114775001_114800000.sdf.gz"/>
 </config>
-<entry key="useRowID" type="xboolean" value="true"/>
-<entry key="extractName" type="xboolean" value="true"/>
-<entry key="extractSDF" type="xboolean" value="false"/>
+<entry key="useRowID" type="xboolean" value="false"/>
+<entry key="extractName" type="xboolean" value="false"/>
+<entry key="extractSDF" type="xboolean" value="true"/>
 <entry key="extractMol" type="xboolean" value="false"/>
 <entry key="extractCTab" type="xboolean" value="false"/>
 <entry key="extractCounts" type="xboolean" value="false"/>
 <entry key="sourceLocationColumn" type="xboolean" value="false"/>
-<entry key="limitMolecules" type="xboolean" value="false"/>
-<entry key="limit" type="xint" value="10"/>
+<entry key="limitMolecules" type="xboolean" value="true"/>
+<entry key="limit" type="xint" value="1"/>
 <entry key="extractAllProperties" type="xboolean" value="false"/>
 <config key="properties">
 <entry key="count" type="xint" value="35"/>
@@ -144,7 +144,7 @@
 <config key="styles"/>
 </config>
 <entry key="customDescription" type="xstring" isnull="true" value=""/>
-<entry key="state" type="xstring" value="EXECUTED"/>
+<entry key="state" type="xstring" value="CONFIGURED"/>
 <entry key="factory" type="xstring" value="org.knime.chem.base.node.io.sdf.SDFReader3NodeFactory"/>
 <entry key="node-name" type="xstring" value="SDF Reader"/>
 <entry key="node-bundle-name" type="xstring" value="KNIME Chemistry Base nodes"/>
@@ -157,22 +157,16 @@
 <entry key="node-feature-version" type="xstring" value="3.1.1.v201601281239"/>
 <config key="factory_settings"/>
 <entry key="name" type="xstring" value="SDF Reader"/>
-<entry key="hasContent" type="xboolean" value="true"/>
+<entry key="hasContent" type="xboolean" value="false"/>
 <entry key="isInactive" type="xboolean" value="false"/>
 <config key="ports">
 <config key="port_1">
 <entry key="index" type="xint" value="1"/>
-<entry key="port_spec_class" type="xstring" value="org.knime.core.data.DataTableSpec"/>
-<entry key="port_object_class" type="xstring" value="org.knime.core.node.BufferedDataTable"/>
-<entry key="port_object_summary" type="xstring" value="Rows: 25000, Cols: 36"/>
-<entry key="port_dir_location" type="xstring" value="port_1"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
 </config>
 <config key="port_2">
 <entry key="index" type="xint" value="2"/>
-<entry key="port_spec_class" type="xstring" value="org.knime.core.data.DataTableSpec"/>
-<entry key="port_object_class" type="xstring" value="org.knime.core.node.BufferedDataTable"/>
-<entry key="port_object_summary" type="xstring" value="Rows: 0, Cols: 2"/>
-<entry key="port_dir_location" type="xstring" value="port_2"/>
+<entry key="port_dir_location" type="xstring" isnull="true" value=""/>
 </config>
 </config>
 <config key="filestores">
