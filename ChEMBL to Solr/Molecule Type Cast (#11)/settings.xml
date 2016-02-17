@@ -6,7 +6,7 @@
 <entry key="memory_policy" type="xstring" value="CacheSmallInMemory"/>
 </config>
 <config key="model">
-<entry key="column_name" type="xstring" value="canonical_smiles"/>
+<entry key="column_name" type="xstring" value="smiles"/>
 <entry key="target_type" type="xstring" value="Smiles"/>
 </config>
 <config key="nodeAnnotation">
