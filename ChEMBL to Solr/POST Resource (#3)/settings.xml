@@ -88,7 +88,7 @@
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="true"/>
 </config>
-<entry key="URL_TEXT_KEY" type="xstring" value="http://localhost:8983/solr/chembl_20/update?commit=true"/>
+<entry key="URL_TEXT_KEY" type="xstring" value="http://localhost:8983/solr/chem-search/update?commit=true"/>
 <config key="URL_COL_KEY_Internals">
 <entry key="SettingsModelID" type="xstring" value="SMID_string"/>
 <entry key="EnabledStatus" type="xboolean" value="false"/>
@@ -139,8 +139,8 @@
 <config key="nodeAnnotation">
 <entry key="text" type="xstring" value="Post to Solr"/>
 <entry key="bgcolor" type="xint" value="16777215"/>
-<entry key="x-coordinate" type="xint" value="307"/>
-<entry key="y-coordinate" type="xint" value="279"/>
+<entry key="x-coordinate" type="xint" value="207"/>
+<entry key="y-coordinate" type="xint" value="239"/>
 <entry key="width" type="xint" value="107"/>
 <entry key="height" type="xint" value="13"/>
 <entry key="alignment" type="xstring" value="CENTER"/>
