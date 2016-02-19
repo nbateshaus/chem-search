@@ -148,7 +148,7 @@
     <field name="cactvs_tpsa" type="tdouble" />
     <field name="chebi_id" type="string" />
     <field name="chembl_id" type="string" />
-    <field name="chirality" type="tint" />
+    <field name="chirality" type="string" />
     <field name="component_count" type="tint" />
     <field name="coordinate_type" type="string" />
     <field name="dosed_ingredient" type="boolean" />
