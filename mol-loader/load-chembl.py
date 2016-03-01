@@ -1,6 +1,18 @@
-import psycopg2, psycopg2.extras
+import decimal
+import itertools
+import json
+import psycopg2
+import requests
 
-def fetch_chembl_20():
+# Built-in JSON can't serialize Decimals
+# Use like this: json.dumps(o, cls=JsonDecimalEncoder)
+class JsonDecimalEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return float(o)
+        return super(DecimalEncoder, self).default(o)
+
+def fetch_chembl_20(limit=None, where=None):
     '''Load ChEMBL from PostgreSQL into Solr'''
     pg = psycopg2.connect(dbname="chembl_20")
     q = '''
@@ -97,16 +109,44 @@ LEFT JOIN compound_structures cs ON md.molregno = cs.molregno
 LEFT JOIN biotherapeutics bt     ON md.molregno = bt.molregno
 LEFT JOIN synonyms_agg syn       ON md.molregno = syn.molregno
 LEFT JOIN alerts_agg alrt        ON md.molregno = alrt.molregno
-LIMIT 10
 '''
-    cur = pg.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    args = []
+    if where != None:
+        q += "WHERE {0}".format(where)
+    if limit != None:
+        q += "LIMIT {0}".format(limit)
+    cur = pg.cursor()
     cur.execute(q)
-    return cur.fetchall()
+    # TODO: provide a cursor that will rewrite items on demand,
+    # instead of pre-fetching everything.
+    rows = cur.fetchall()
+    cols = [col[0] for col in cur.description]
+    mols = [dict(itertools.izip(cols, row)) for row in rows]
+    for mol in mols:
+        mol["id"] = "chembl " + mol["chembl_id"]
+    return mols
+
+def post_to_solr(mols):
+    headers = {'Content-Type' : 'application/json'}
+    url = 'http://localhost:8983/solr/chem-search/update?commit=true'
+    method = 'POST'
+    chunk = 0
+    while (chunk * 1000) < len(mols):
+        print("Writing chunk %d" % chunk)
+        data = json.dumps(mols[(chunk * 1000) : (chunk * 1000) + 1000], cls=JsonDecimalEncoder)
+        requests.post(url, data=data, headers=headers)
+        chunk = chunk + 1
 
 def test_fetch_chembl_20():
-    chembl = fetch_chembl_20()
+    chembl = fetch_chembl_20(limit=10)
     for mol in chembl:
-        print(mol["molregno"])
+        print(json.dumps(mol, cls=JsonDecimalEncoder))
+
+def test_post_to_solr():
+    mols = [{'id':'test 1'}, {'id':'test 2'}]
+    post_to_solr(mols)
 
 if __name__=='__main__':
-    test_fetch_chembl_20()
+    mols = fetch_chembl_20(limit=10000)
+    print("Fetched %d molecules" % len(mols))
+    post_to_solr(mols)
