@@ -1,23 +1,28 @@
 """
-Class encapsulating interaction with ChEMBLdb.
+Encapsulate interaction with ChEMBLdb.
 """
 
 import itertools
 import psycopg2
 
 class Chembl:
-    def __init__(self, where=None, limit=None):
-        self.where = where
+    def __init__(self, limit=None, **kwargs):
+        '''
+        Encapsulate interaction with ChEMBLdb.
+
+        Keyword arguements:
+        limit - integer limit on number of molecules to generate
+        Other keyword arguments will be passed to psycopg2 for database connection.
+        '''
         self.limit = limit
+        self.kwargs = kwargs
 
     def __iter__(self):
-        '''Generator for ChEMBL molecules from ChEMBLdb'''
-        q = self._base_query
-        if self.where != None:
-            q += "WHERE {0}".format(self.where) # TODO: use SQL parameters
+        '''Yield molecules'''
+        q = self.__base_query
         if self.limit != None:
             q += "LIMIT {0}".format(self.limit) # TODO: use SQL parameters
-        cur = psycopg2.connect(dbname="chembl_20").cursor()
+        cur = psycopg2.connect(**self.kwargs).cursor()
         cur.execute(q)
         cols = [col[0] for col in cur.description]
         row = cur.fetchone()
@@ -27,7 +32,7 @@ class Chembl:
             yield mol
             row = cur.fetchone()
 
-    _base_query = '''
+    __base_query = '''
 WITH synonyms_agg AS (
     SELECT
         molregno,
@@ -124,10 +129,7 @@ LEFT JOIN alerts_agg alrt        ON md.molregno = alrt.molregno
 '''
 
 def test_iter():
-    c = Chembl(limit=10)
-    for m in c:
-        print(m["id"])
-    c = Chembl(where="chembl_id = 'CHEMBL266065'")
+    c = Chembl(dbname="chembl_20", limit=10)
     for m in c:
         print(m["id"])
 
