@@ -34,20 +34,52 @@ class Pubchem:
                 yield self.mol_to_dict(mol)
             f.close()
 
+    SYNONYM_PROPS = set([
+        'PUBCHEM_IUPAC_OPENEYE_NAME',
+        'PUBCHEM_IUPAC_CAS_NAME',
+        'PUBCHEM_IUPAC_NAME',
+        'PUBCHEM_IUPAC_SYSTEMATIC_NAME',
+        'PUBCHEM_IUPAC_TRADITIONAL_NAME'
+    ])
+
     def mol_to_dict(self, mol):
         """
         Capture all the information from an rdkit.Chem.Mol into a dictionary
         """
+        props = mol.GetPropNames()
         # All the properties defined in the molecule, as-is
-        d = {p.lower() : mol.GetProp(p) for p in mol.GetPropNames()}
-        # Original SMILES
-        d['pubchem_smiles'] = rdkit.Chem.MolToSmiles(mol)
+        d = {p.lower() : mol.GetProp(p) for p in props}
         d['id'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
+
+        # Original SMILES
+        smiles = [rdkit.Chem.MolToSmiles(mol)]
+
         # Attempt normalization; this may fail if there are ... oddities ...
         # in the molecule.
-        mol = rdkit.Chem.MolFromSmiles(d['pubchem_smiles']) # Canonicalizes
-        if mol is not None:
-            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(mol)
+        rdkit_mol = rdkit.Chem.MolFromSmiles(rdkit.Chem.MolToSmiles(mol)) # Canonicalizes
+        if rdkit_mol is not None:
+            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol)
+            smiles.append(d['rdkit_smiles'])
+        if 'UBCHEM_OPENEYE_CAN_SMILES' in props:
+            smiles.append(mol.GetProp('UBCHEM_OPENEYE_CAN_SMILES'))
+        if 'PUBCHEM_OPENEYE_ISO_SMILES' in props:
+            smiles.append(mol.GetProp('PUBCHEM_OPENEYE_ISO_SMILES'))
+        if smiles:
+            d['smiles'] = list(set(smiles))
+
+        synonyms = [mol.GetProp(p) for p in self.SYNONYM_PROPS if p in props]
+        if synonyms:
+            d['synonyms'] = list(set(synonyms))
+
+        if 'PUBCHEM_COMPOUND_CANONICALIZED' in props:
+            canon = mol.GetProp('PUBCHEM_COMPOUND_CANONICALIZED')
+            if canon == 1:
+                d['pubchem_compound_canonicalized'] = True
+            elif canon == 0:
+                d['pubchem_compound_canonicalized'] = False
+            else:
+                del d['pubchem_compound_canonicalized']
+
         return d
 
     def glob(self, path):
