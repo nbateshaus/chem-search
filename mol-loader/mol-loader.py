@@ -1,7 +1,10 @@
 import Chembl
+import Pubchem
 import Solr
 
 if __name__=='__main__':
-    c = Chembl.Chembl(dbname="chembl_20")
     s = Solr.Solr()
-    s.postall(c)
+    chembl = Chembl.Chembl(dbname="chembl_20")
+    s.postall(chembl)
+    pubchem = Pubchem.Pubchem(path="/Users/nik/Data/PubChem/*.sdf.gz")
+    s.postall(pubchem)
