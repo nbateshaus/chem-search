@@ -28,7 +28,7 @@ class Chembl:
         row = cur.fetchone()
         while (row != None):
             mol = dict(itertools.izip(cols, row))
-            mol["id"] = "ChEMBLdb 20 " + mol["chembl_id"]
+            mol["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + mol["chembl_id"]
             yield mol
             row = cur.fetchone()
 
