@@ -29,41 +29,40 @@ class Pubchem:
             for mol in mols:
                 molnum += 1
                 if mol is None:
-                    print("Failed to read molecule {0} from {1}", (molnum, name))
+                    print("Failed to read molecule {0} from {1}".format(molnum, name))
                     continue
                 yield self.mol_to_dict(mol)
             f.close()
 
-    SYNONYM_PROPS = set([
+    SYNONYM_PROPS = [
         'PUBCHEM_IUPAC_OPENEYE_NAME',
         'PUBCHEM_IUPAC_CAS_NAME',
         'PUBCHEM_IUPAC_NAME',
         'PUBCHEM_IUPAC_SYSTEMATIC_NAME',
         'PUBCHEM_IUPAC_TRADITIONAL_NAME'
-    ])
+    ]
+    SMILES_PROPS = [
+        'PUBCHEM_OPENEYE_CAN_SMILES',
+        'PUBCHEM_OPENEYE_ISO_SMILES'
+    ]
 
     def mol_to_dict(self, mol):
         """
         Capture all the information from an rdkit.Chem.Mol into a dictionary
         """
-        props = mol.GetPropNames()
+        props = set(mol.GetPropNames())
         # All the properties defined in the molecule, as-is
-        d = {p.lower() : mol.GetProp(p) for p in props}
+        d = {p.lower() : self.cast(mol.GetProp(p)) for p in props}
         d['id'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
 
-        # Original SMILES
-        smiles = [rdkit.Chem.MolToSmiles(mol)]
-
+        smiles = [mol.GetProp(p) for p in self.SMILES_PROPS if p in props]
+        smiles.append(rdkit.Chem.MolToSmiles(mol)) # Original SMILES
         # Attempt normalization; this may fail if there are ... oddities ...
         # in the molecule.
         rdkit_mol = rdkit.Chem.MolFromSmiles(rdkit.Chem.MolToSmiles(mol)) # Canonicalizes
         if rdkit_mol is not None:
             d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol)
             smiles.append(d['rdkit_smiles'])
-        if 'UBCHEM_OPENEYE_CAN_SMILES' in props:
-            smiles.append(mol.GetProp('UBCHEM_OPENEYE_CAN_SMILES'))
-        if 'PUBCHEM_OPENEYE_ISO_SMILES' in props:
-            smiles.append(mol.GetProp('PUBCHEM_OPENEYE_ISO_SMILES'))
         if smiles:
             d['smiles'] = list(set(smiles))
 
@@ -90,6 +89,13 @@ class Pubchem:
                 ] if os.path.isfile(d)]
         else:
             self.files = glob.glob(path)
+
+    def cast(self, val):
+        try:
+            return float(val)
+        except ValueError:
+            pass
+        return val
 
 def test_glob():
     p = Pubchem(".")
