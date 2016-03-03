@@ -56,8 +56,19 @@ class Sdf:
         print("Found {0} files".format(len(self.files)))
 
     def cast(self, val):
+        if val.lower() == str(True).lower():
+            return True
+        elif val.lower() == str(False).lower():
+            return False
+
+        try:
+            return int(val)
+        except ValueError:
+            pass
+
         try:
             return float(val)
         except ValueError:
             pass
+
         return val
