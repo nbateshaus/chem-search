@@ -23,11 +23,9 @@ class Surechembl(Sdf):
         d['id'] = 'https://www.surechembl.org/chemical/' + mol.GetProp('ID')
 
         smiles = []
-        # Attempt normalization; this may fail if there are ... oddities ...
-        # in the molecule.
-        rdkit_mol = rdkit.Chem.MolFromSmiles(rdkit.Chem.MolToSmiles(mol)) # Canonicalizes
+        rdkit_mol = self.canonicalize(mol)
         if rdkit_mol is not None:
-            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol)
+            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
             smiles.append(d['rdkit_smiles'])
         if smiles:
             d['smiles'] = list(set(smiles))

@@ -35,12 +35,11 @@ class Pubchem(Sdf):
         d['id'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
 
         smiles = [mol.GetProp(p) for p in self.SMILES_PROPS if p in props]
-        smiles.append(rdkit.Chem.MolToSmiles(mol)) # Original SMILES
-        # Attempt normalization; this may fail if there are ... oddities ...
-        # in the molecule.
-        rdkit_mol = rdkit.Chem.MolFromSmiles(rdkit.Chem.MolToSmiles(mol)) # Canonicalizes
+        smiles.append(rdkit.Chem.MolToSmiles(mol, True)) # Original SMILES
+
+        rdkit_mol = self.canonicalize(mol)
         if rdkit_mol is not None:
-            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol)
+            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
             smiles.append(d['rdkit_smiles'])
         if smiles:
             d['smiles'] = list(set(smiles))
