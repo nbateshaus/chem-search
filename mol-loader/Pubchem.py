@@ -2,37 +2,14 @@
 Encapsulate reading and formatting of PubChem
 """
 
-import glob
-import gzip
+from Sdf import Sdf
 import json
 import os, os.path
 import rdkit.Chem
 
-class Pubchem:
+class Pubchem(Sdf):
     def __init__(self, path):
-        '''
-        Encapsulate PubChem files found at a particular path.
-
-        Args:
-        path - a file, directory or glob pattern for the SDF files of PubChem
-        '''
-        self.glob(path)
-
-    def __iter__(self):
-        for name in self.files:
-            print("Reading {0}".format(name))
-            f = gzip.open(name)
-            # Leave molecules untouched on reading (sanitize, removeHs, strictParsing)
-            # We'll touch them up later.
-            mols = rdkit.Chem.ForwardSDMolSupplier(f, sanitize=False, removeHs=False, strictParsing=False)
-            molnum = 0
-            for mol in mols:
-                molnum += 1
-                if mol is None:
-                    print("Failed to read molecule {0} from {1}".format(molnum, name))
-                    continue
-                yield self.mol_to_dict(mol)
-            f.close()
+        Sdf.__init__(self, path)
 
     SYNONYM_PROPS = [
         'PUBCHEM_IUPAC_OPENEYE_NAME',
@@ -48,7 +25,9 @@ class Pubchem:
 
     def mol_to_dict(self, mol):
         """
-        Capture all the information from an rdkit.Chem.Mol into a dictionary
+        Capture all the information from a PubChem molecule into a dictionary
+
+        mol_to_dict( (Pubchem)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
         # All the properties defined in the molecule, as-is
@@ -70,8 +49,8 @@ class Pubchem:
         if synonyms:
             d['synonyms'] = list(set(synonyms))
 
-        if 'PUBCHEM_COMPOUND_CANONICALIZED' in props:
-            canon = mol.GetProp('PUBCHEM_COMPOUND_CANONICALIZED')
+        if 'pubchem_compound_canonicalized' in d:
+            canon = d['pubchem_compound_canonicalized']
             if canon == 1:
                 d['pubchem_compound_canonicalized'] = True
             elif canon == 0:
@@ -81,36 +60,10 @@ class Pubchem:
 
         return d
 
-    def glob(self, path):
-        path = os.path.abspath(path)
-        if (os.path.isdir(path)):
-            self.files = [d for d in [
-                    os.path.join(path, f) for f in os.listdir(path)
-                ] if os.path.isfile(d)]
-        else:
-            self.files = glob.glob(path)
-
-    def cast(self, val):
-        try:
-            return float(val)
-        except ValueError:
-            pass
-        return val
-
-def test_glob():
-    p = Pubchem(".")
-    print p.files
-    p = Pubchem("Pubchem.py")
-    print p.files
-    p = Pubchem("*.py")
-    print p.files
-
-def test_iter():
-    p = Pubchem(path="/Users/nik/Data/PubChem/Compound_000000001_000025000.sdf.gz")
-    mols = [m for m in p]
-    for n in range(5):
-        print(json.dumps(mols[n]))
+def test_mol_to_dict():
+    p = Pubchem(path="resources/pubchem-test-data.sdf*")
+    for mol in p:
+        print(json.dumps(mol))
 
 if __name__ == "__main__":
-    test_glob()
-    test_iter()
+    test_mol_to_dict()
