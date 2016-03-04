@@ -42,10 +42,6 @@ class Chembl:
             yield mol
             row = cur.fetchone()
 
-    SMILES_PROPS = [
-        'smiles'
-    ]
-
     __base_query = '''
 WITH synonyms_agg AS (
     SELECT
