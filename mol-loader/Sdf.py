@@ -55,7 +55,7 @@ class Sdf:
             self.files = glob.glob(path)
         print("Found {0} files".format(len(self.files)))
 
-    def canonicalize(mol):
+    def canonicalize(self, mol):
         """
         Generate a canonical representation of a molecule.
 
@@ -63,9 +63,7 @@ class Sdf:
         """
         # Attempt normalization; this may fail if there are ... oddities ... in the molecule.
         try:
-            rdkit_mol = Chem.SanitizeMol(mol)
-            if rdkit_mol is not None:
-                rdkit_mol = Chem.RemoveHs(rdkit_mol)
+            rdkit_mol = rdkit.Chem.RemoveHs(mol)
         except ValueError:
             rdkit_mol = None
         return rdkit_mol
