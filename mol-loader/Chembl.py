@@ -4,6 +4,7 @@ Encapsulate interaction with ChEMBLdb.
 
 import itertools
 import psycopg2
+import rdkit.Chem
 
 class Chembl:
     def __init__(self, limit=None, **kwargs):
@@ -29,8 +30,21 @@ class Chembl:
         while (row != None):
             mol = dict(itertools.izip(cols, row))
             mol["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + mol["chembl_id"]
+            smiles = [mol["smiles"]]
+            try:
+                rdkit_mol = rdkit.Chem.MolFromSmiles(mol["smiles"])
+                if rdkit_mol is not None:
+                    mol["rdkit_smiles"] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
+                    smiles.append(mol["rdkit_smiles"])
+            except ValueError:
+                pass
+            mol["smiles"] = list(set(smiles))
             yield mol
             row = cur.fetchone()
+
+    SMILES_PROPS = [
+        'smiles'
+    ]
 
     __base_query = '''
 WITH synonyms_agg AS (
@@ -131,7 +145,7 @@ LEFT JOIN alerts_agg alrt        ON md.molregno = alrt.molregno
 def test_iter():
     c = Chembl(dbname="chembl_20", limit=10)
     for m in c:
-        print(m["id"])
+        print(m)
 
 if __name__=='__main__':
     test_iter()
