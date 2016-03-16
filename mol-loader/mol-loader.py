@@ -21,9 +21,9 @@ if __name__=='__main__':
         s.postall(chembl)
 
     if args.pubchem is not None:
-        pubchem = Pubchem.Pubchem(path=args.pubchem)
+        pubchem = Pubchem.Pubchem(path=args.pubchem, limit=args.limit)
         s.postall(pubchem)
 
     if args.surechembl is not None:
-        surechembl = Surechembl.Surechembl(path=args.surechembl)
+        surechembl = Surechembl.Surechembl(path=args.surechembl, limit=args.limit)
         s.postall(surechembl)

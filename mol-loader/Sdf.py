@@ -14,17 +14,19 @@ class Sdf:
     Subclasses must provide method mol_to_dict
     '''
 
-    def __init__(self, path):
+    def __init__(self, path, limit=None):
         '''
         Encapsulate SDF files found at a particular path.
 
         Args:
         path - a file, directory or glob pattern for the SDF files
         '''
+        self.limit = limit
         print("Searching for {0}".format(path))
         self.glob(path)
 
     def __iter__(self):
+        generated = 0
         for name in self.files:
             print("Reading {0}".format(name))
             f = gzip.open(name)
@@ -43,7 +45,12 @@ class Sdf:
                     print("Failed to read molecule {0} from {1}".format(molnum, name))
                     continue
                 yield self.mol_to_dict(mol)
+                generated += 1
+                if generated == self.limit:
+                    break
             f.close()
+            if generated == self.limit:
+                break
 
     def glob(self, path):
         path = os.path.abspath(path)
