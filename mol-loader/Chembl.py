@@ -3,45 +3,54 @@ Encapsulate interaction with ChEMBLdb.
 """
 
 import psycopg2
-import rdkit.Chem
+from rdkit import Chem
+
+from rdkit_utils import rdkit_canonicalize, rdkit_descriptors, rdkit_smiles
+
 
 class Chembl:
     def __init__(self, dsn, limit=None):
-        '''
+        """
         Encapsulate interaction with ChEMBLdb.
 
         Keyword arguments:
         dsn - Connection string for PostgreSQL, following http://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING
         limit - integer limit on number of molecules to generate
         Other keyword arguments will be passed to psycopg2 for database connection.
-        '''
+        """
         self.dsn = dsn
         self.limit = limit
 
     def __iter__(self):
-        '''Yield molecules'''
+        """Yield molecules"""
         q = self.__base_query
-        if self.limit != None:
+        if self.limit is not None:
             q += "LIMIT {0}".format(self.limit) # TODO: use SQL parameters
         cur = psycopg2.connect(self.dsn).cursor()
         cur.execute(q)
         cols = [col[0] for col in cur.description]
         row = cur.fetchone()
-        while (row != None):
-            mol = dict(zip(cols, row))
-            mol["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + mol["chembl_id"]
-            s = mol["smiles"]
+        while row is not None:
+            d = dict(zip(cols, row))
+            d["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["chembl_id"]
+            s = d["smiles"]
             if s is not None:
                 smiles = [s]
                 try:
-                    rdkit_mol = rdkit.Chem.MolFromSmiles(s)
-                    if rdkit_mol is not None:
-                        mol["rdkit_smiles"] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
-                        smiles.append(mol["rdkit_smiles"])
+                    mol = Chem.MolFromSmiles(s)
+                    rdkit_mol = rdkit_canonicalize(mol)
+                    rs = rdkit_smiles(rdkit_mol)
+                    if rs is not None:
+                        d['rdkit_smiles'] = rs
+                        smiles.append(rs)
+
+                    descs = rdkit_descriptors(rdkit_mol)
+                    for name in descs:
+                        d['rdkit_' + name.lower()] = descs[name]
                 except ValueError:
                     pass
-                mol["smiles"] = list(set(smiles))
-            yield mol
+                d["smiles"] = list(set(smiles))
+            yield d
             row = cur.fetchone()
 
     __base_query = '''
@@ -141,7 +150,7 @@ LEFT JOIN alerts_agg alrt        ON md.molregno = alrt.molregno
 '''
 
 def test_iter():
-    c = Chembl(dbname="chembl_20", limit=10)
+    c = Chembl("dbname=chembl_20", limit=10)
     for m in c:
         print(m)
 

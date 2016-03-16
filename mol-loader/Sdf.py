@@ -4,26 +4,29 @@ Encapsulate reading and formatting of an SDF collection
 
 import glob
 import gzip
-import os, os.path
-import rdkit.Chem
+import os
+import os.path
+
+from rdkit import Chem
+
 
 class Sdf:
-    '''
+    """
     Encapsulate SDF files found at a particular path.
 
     Subclasses must provide method mol_to_dict
-    '''
+    """
 
     def __init__(self, path, limit=None):
-        '''
+        """
         Encapsulate SDF files found at a particular path.
 
         Args:
         path - a file, directory or glob pattern for the SDF files
-        '''
+        """
         self.limit = limit
         print("Searching for {0}".format(path))
-        self.glob(path)
+        self.files = self.glob(path)
 
     def __iter__(self):
         generated = 0
@@ -34,10 +37,11 @@ class Sdf:
                 f.read(1) # Will raise if f is not GZip compressed
                 f.rewind()
             except IOError:
-                f = open(name)
+                f.close()
+                f = open(name, 'rb')
             # Be as permissive as possible on read (sanitize, removeHs, strictParsing)
             # mol_to_dict can do cleanup.
-            mols = rdkit.Chem.ForwardSDMolSupplier(f, sanitize=False, removeHs=False, strictParsing=False)
+            mols = Chem.ForwardSDMolSupplier(f, sanitize=False, removeHs=False, strictParsing=False)
             molnum = 0
             for mol in mols:
                 molnum += 1
@@ -52,30 +56,32 @@ class Sdf:
             if generated == self.limit:
                 break
 
-    def glob(self, path):
+    @staticmethod
+    def glob(path):
+        """
+        Extend system glob to match all files in a directory.
+
+        :param path: Directory or glob pattern
+        :return: List of all files in or matching path
+        """
         path = os.path.abspath(path)
-        if (os.path.isdir(path)):
-            self.files = [d for d in [
+        if os.path.isdir(path):
+            files = [d for d in [
                     os.path.join(path, f) for f in os.listdir(path)
                 ] if os.path.isfile(d)]
         else:
-            self.files = glob.glob(path)
-        print("Found {0} files".format(len(self.files)))
+            files = glob.glob(path)
+        print("Found {0} files".format(len(files)))
+        return files
 
-    def canonicalize(self, mol):
+    @staticmethod
+    def cast(val):
         """
-        Generate a canonical representation of a molecule.
+        Given a string, guess the type of the value it represents, and return the string cast to that type.
 
-        canonicalize( (rdkit.Chem.Mol)mol ) -> rdkit.Chem.Mol
+        :param val: String representation of some value
+        :return: bool, int, float or str derived from val
         """
-        # Attempt normalization; this may fail if there are ... oddities ... in the molecule.
-        try:
-            rdkit_mol = rdkit.Chem.RemoveHs(mol)
-        except ValueError:
-            rdkit_mol = None
-        return rdkit_mol
-
-    def cast(self, val):
         if val.lower() == str(True).lower():
             return True
         elif val.lower() == str(False).lower():
