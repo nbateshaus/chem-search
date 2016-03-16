@@ -5,11 +5,13 @@ Encapsulate interaction with Solr
 import decimal
 import json
 import requests
+import os.path
 
 class Solr:
-    def __init__(self, chunk_size=1000, **kwargs):
+    def __init__(self, url, core, chunk_size=1000):
+        self.url = url
+        self.core = core
         self.chunk_size = chunk_size
-        self.kwargs = kwargs
 
     # Built-in JSON can't serialize Decimals
     # Use like this: json.dumps(o, cls=__JsonDecimalEncoder)
@@ -31,10 +33,11 @@ class Solr:
                 self.__post_chunk(chunk)
 
     def __post_chunk(self, chunk):
-        print("Posting to Solr")
-        url = 'http://solr:8983/solr/chem-search/update?commit=true'
+        url = os.path.join(self.url, self.core, 'update') + '?commit=true'
         headers = {'Content-Type' : 'application/json'}
         data = json.dumps(chunk, cls=Solr.JsonDecimalEncoder)
+        print(data)
+        print("Posting {0} molecules to Solr at {1}".format(len(chunk), url))
         requests.post(url, headers=headers, data=data)
 
 def test_postall():
