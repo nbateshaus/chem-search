@@ -2,13 +2,16 @@
 Encapsulate reading and formatting of PubChem
 """
 
-from Sdf import Sdf
 import json
-import os, os.path
+
 import rdkit.Chem
 
+from Sdf import Sdf
+from rdkit_utils import rdkit_descriptors, rdkit_canonicalize, rdkit_smiles
+
+
 class Pubchem(Sdf):
-    def __init__(self, path, limit):
+    def __init__(self, path, limit=None):
         Sdf.__init__(self, path, limit)
 
     SYNONYM_PROPS = [
@@ -18,6 +21,7 @@ class Pubchem(Sdf):
         'PUBCHEM_IUPAC_SYSTEMATIC_NAME',
         'PUBCHEM_IUPAC_TRADITIONAL_NAME'
     ]
+
     SMILES_PROPS = [
         'PUBCHEM_OPENEYE_CAN_SMILES',
         'PUBCHEM_OPENEYE_ISO_SMILES'
@@ -40,14 +44,6 @@ class Pubchem(Sdf):
         except RuntimeError:
             print(d['id'])
 
-        rdkit_mol = self.canonicalize(mol)
-        if rdkit_mol is not None:
-            try:
-                d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
-                smiles.append(d['rdkit_smiles'])
-            except RuntimeError:
-                print(d['id'])
-
         if smiles:
             d['smiles'] = list(set(smiles))
 
@@ -64,12 +60,24 @@ class Pubchem(Sdf):
             else:
                 del d['pubchem_compound_canonicalized']
 
+        rdkit_mol = rdkit_canonicalize(mol)
+        rs = rdkit_smiles(rdkit_mol)
+        if rs is not None:
+            d['rdkit_smiles'] = rs
+            smiles.append(rs)
+
+        descs = rdkit_descriptors(rdkit_mol)
+        for name in descs:
+            d['rdkit_' + name.lower()] = descs[name]
+
         return d
+
 
 def test_mol_to_dict():
     p = Pubchem(path="resources/pubchem-test-data.sdf*")
     for mol in p:
         print(json.dumps(mol))
+
 
 if __name__ == "__main__":
     test_mol_to_dict()

@@ -2,13 +2,14 @@
 Encapsulate reading and formatting of SureChEMBL
 """
 
-from Sdf import Sdf
 import json
-import os, os.path
-import rdkit.Chem
+
+from Sdf import Sdf
+from rdkit_utils import rdkit_canonicalize, rdkit_descriptors, rdkit_smiles
+
 
 class Surechembl(Sdf):
-    def __init__(self, path, limit):
+    def __init__(self, path, limit=None):
         Sdf.__init__(self, path, limit)
 
     def mol_to_dict(self, mol):
@@ -23,17 +24,21 @@ class Surechembl(Sdf):
         d['id'] = 'https://www.surechembl.org/chemical/' + mol.GetProp('ID')
 
         smiles = []
-        rdkit_mol = self.canonicalize(mol)
-        if rdkit_mol is not None:
-            try:
-                d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
-                smiles.append(d['rdkit_smiles'])
-            except RuntimeError:
-                print(d['id'])
+        rdkit_mol = rdkit_canonicalize(mol)
+        rs = rdkit_smiles(rdkit_mol)
+        if rs is not None:
+            d['rdkit_smiles'] = rs
+            smiles.append(rs)
+
+        descs = rdkit_descriptors(rdkit_mol)
+        for name in descs:
+            d['rdkit_' + name.lower()] = descs[name]
+
         if smiles:
             d['smiles'] = list(set(smiles))
 
         return d
+
 
 def test_mol_to_dict():
     mols = Surechembl(path="resources/surechembl-test-data.sdf*")
