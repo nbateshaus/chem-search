@@ -2,33 +2,33 @@
 Encapsulate interaction with ChEMBLdb.
 """
 
-import itertools
 import psycopg2
 import rdkit.Chem
 
 class Chembl:
-    def __init__(self, limit=None, **kwargs):
+    def __init__(self, dsn, limit=None):
         '''
         Encapsulate interaction with ChEMBLdb.
 
-        Keyword arguements:
+        Keyword arguments:
+        dsn - Connection string for PostgreSQL, following http://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING
         limit - integer limit on number of molecules to generate
         Other keyword arguments will be passed to psycopg2 for database connection.
         '''
+        self.dsn = dsn
         self.limit = limit
-        self.kwargs = kwargs
 
     def __iter__(self):
         '''Yield molecules'''
         q = self.__base_query
         if self.limit != None:
             q += "LIMIT {0}".format(self.limit) # TODO: use SQL parameters
-        cur = psycopg2.connect(**self.kwargs).cursor()
+        cur = psycopg2.connect(self.dsn).cursor()
         cur.execute(q)
         cols = [col[0] for col in cur.description]
         row = cur.fetchone()
         while (row != None):
-            mol = dict(itertools.izip(cols, row))
+            mol = dict(zip(cols, row))
             mol["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + mol["chembl_id"]
             s = mol["smiles"]
             if s is not None:

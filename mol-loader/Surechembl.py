@@ -8,8 +8,8 @@ import os, os.path
 import rdkit.Chem
 
 class Surechembl(Sdf):
-    def __init__(self, path):
-        Sdf.__init__(self, path)
+    def __init__(self, path, limit):
+        Sdf.__init__(self, path, limit)
 
     def mol_to_dict(self, mol):
         """

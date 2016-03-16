@@ -8,8 +8,8 @@ import os, os.path
 import rdkit.Chem
 
 class Pubchem(Sdf):
-    def __init__(self, path):
-        Sdf.__init__(self, path)
+    def __init__(self, path, limit):
+        Sdf.__init__(self, path, limit)
 
     SYNONYM_PROPS = [
         'PUBCHEM_IUPAC_OPENEYE_NAME',
