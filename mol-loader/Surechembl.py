@@ -25,8 +25,11 @@ class Surechembl(Sdf):
         smiles = []
         rdkit_mol = self.canonicalize(mol)
         if rdkit_mol is not None:
-            d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
-            smiles.append(d['rdkit_smiles'])
+            try:
+                d['rdkit_smiles'] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
+                smiles.append(d['rdkit_smiles'])
+            except RuntimeError:
+                print(d['id'])
         if smiles:
             d['smiles'] = list(set(smiles))
 

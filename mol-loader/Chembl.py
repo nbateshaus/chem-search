@@ -30,15 +30,17 @@ class Chembl:
         while (row != None):
             mol = dict(itertools.izip(cols, row))
             mol["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + mol["chembl_id"]
-            smiles = [mol["smiles"]]
-            try:
-                rdkit_mol = rdkit.Chem.MolFromSmiles(mol["smiles"])
-                if rdkit_mol is not None:
-                    mol["rdkit_smiles"] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
-                    smiles.append(mol["rdkit_smiles"])
-            except ValueError:
-                pass
-            mol["smiles"] = list(set(smiles))
+            s = mol["smiles"]
+            if s is not None:
+                smiles = [s]
+                try:
+                    rdkit_mol = rdkit.Chem.MolFromSmiles(s)
+                    if rdkit_mol is not None:
+                        mol["rdkit_smiles"] = rdkit.Chem.MolToSmiles(rdkit_mol, True)
+                        smiles.append(mol["rdkit_smiles"])
+                except ValueError:
+                    pass
+                mol["smiles"] = list(set(smiles))
             yield mol
             row = cur.fetchone()
 
