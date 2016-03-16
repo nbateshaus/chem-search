@@ -31,7 +31,8 @@ class Solr:
                 self.__post_chunk(chunk)
 
     def __post_chunk(self, chunk):
-        url = 'http://localhost:8983/solr/chem-search/update?commit=true'
+        print("Posting to Solr")
+        url = 'http://solr:8983/solr/chem-search/update?commit=true'
         headers = {'Content-Type' : 'application/json'}
         data = json.dumps(chunk, cls=Solr.JsonDecimalEncoder)
         requests.post(url, headers=headers, data=data)
