@@ -1,8 +1,7 @@
-from flask import render_template, request, url_for
+import pysolr
+from flask import render_template, request
 
 from SearchApp import app
-
-import pysolr
 
 PAGE_SIZE = 10
 
