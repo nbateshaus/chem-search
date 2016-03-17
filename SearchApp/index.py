@@ -15,7 +15,7 @@ def index():
     start=int((page - 1) * PAGE_SIZE)
     solr = pysolr.Solr('http://localhost:8983/solr/molecules/')
     results = solr.search(q="*:*", start=start, rows=PAGE_SIZE)
-    headers = list({header for doc in results.docs for header in doc.keys()})
+    headers = list({header for doc in results.docs for header in doc.keys() if not header.startswith('_')})
     headers.sort()
     rows = [[doc[header] if header in doc else None for header in headers] for doc in results.docs]
     pagination = lambda: None
