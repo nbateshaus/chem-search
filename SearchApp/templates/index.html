@@ -52,8 +52,9 @@
                 <form class="navbar-form navbar-right" role="search"
                       action="{{ url_for('index') }}">
                     <div class="input-group">
-                        <input name="q" type="text" class="form-control" placeholder="
-                                {% if request.args.get('q') %}{{ request.args.get('q') }}{% else %}Search{% endif %}"/>
+                        <input name="q" type="text" class="form-control" placeholder=
+                            "{% if request.args.get('q') %}{{ request.args.get('q') }}{% else %}Search{% endif %}"
+                        />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
