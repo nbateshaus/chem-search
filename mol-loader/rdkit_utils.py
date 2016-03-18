@@ -53,7 +53,7 @@ def rdkit_descriptors(mol):
     return dd
 
 
-def rdkit_canonicalize(mol):
+def rdkit_standardize(mol):
     """
     Generate a canonical representation of a molecule.
 

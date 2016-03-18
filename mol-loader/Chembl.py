@@ -5,7 +5,7 @@ Encapsulate interaction with ChEMBLdb.
 import psycopg2
 from rdkit import Chem
 
-from rdkit_utils import rdkit_canonicalize, rdkit_descriptors, rdkit_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles
 
 
 class Chembl:
@@ -38,7 +38,7 @@ class Chembl:
                 smiles = [s]
                 try:
                     mol = Chem.MolFromSmiles(s)
-                    rdkit_mol = rdkit_canonicalize(mol)
+                    rdkit_mol = rdkit_standardize(mol)
                     rs = rdkit_smiles(rdkit_mol)
                     if rs is not None:
                         d['rdkit_smiles'] = rs

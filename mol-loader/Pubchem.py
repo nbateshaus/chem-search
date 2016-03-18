@@ -7,7 +7,7 @@ import json
 import rdkit.Chem
 
 from Sdf import Sdf
-from rdkit_utils import rdkit_descriptors, rdkit_canonicalize, rdkit_smiles
+from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles
 
 
 class Pubchem(Sdf):
@@ -60,7 +60,7 @@ class Pubchem(Sdf):
             else:
                 del d['pubchem_compound_canonicalized']
 
-        rdkit_mol = rdkit_canonicalize(mol)
+        rdkit_mol = rdkit_standardize(mol)
         rs = rdkit_smiles(rdkit_mol)
         if rs is not None:
             d['rdkit_smiles'] = rs
