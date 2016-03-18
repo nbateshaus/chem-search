@@ -44,11 +44,11 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right" role="search">
+                    <form class="navbar-form navbar-right" role="search" action="{{ url_for('index') }}">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input name="q" type="text" class="form-control" placeholder="{% if request.args.get('q') %}{{ request.args.get('q') }}{% else %}Search{% endif %}">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
                         </div>
                     </form>
@@ -112,25 +112,25 @@
                 </div>
                 <ul class="pagination pull-right">
                     <li class="previous{% if pagination.page == 1 %} disabled{% endif %}">
-                        <a href="{{ url_for('index', page=1) }}" aria-label="First">
+                        <a href="{{ url_for('index', page=1, q=request.args.get('q')) }}" aria-label="First">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     {% if pagination.page > 2 %}
-                        <li><a href="{{ url_for('index', page=pagination.page - 2) }}">{{ pagination.page - 2 }}</a></li>
+                        <li><a href="{{ url_for('index', page=pagination.page - 2, q=request.args.get('q')) }}">{{ pagination.page - 2 }}</a></li>
                     {% endif %}
                     {% if pagination.page > 1 %}
-                        <li><a href="{{url_for('index', page=pagination.page - 1) }}">{{ pagination.page - 1 }}</a></li>
+                        <li><a href="{{url_for('index', page=pagination.page - 1, q=request.args.get('q')) }}">{{ pagination.page - 1 }}</a></li>
                     {% endif %}
                     <li class="active"><a href="#">{{ pagination.page }}</a></li>
                     {% if (pagination.pages - pagination.page) > 1 %}
-                       <li><a href="{{ url_for('index', page=pagination.page + 1) }}">{{ pagination.page + 1 }}</a></li>
+                       <li><a href="{{ url_for('index', page=pagination.page + 1, q=request.args.get('q')) }}">{{ pagination.page + 1 }}</a></li>
                     {% endif %}
                     {% if (pagination.pages - pagination.page) > 2 %}
-                        <li><a href="{{ url_for('index', page=pagination.page + 2) }}">{{ pagination.page + 2 }}</a></li>
+                        <li><a href="{{ url_for('index', page=pagination.page + 2, q=request.args.get('q')) }}">{{ pagination.page + 2 }}</a></li>
                     {% endif %}
                     <li class="next{% if pagination.page == pagination.pages %} disabled{% endif %}">
-                        <a href="{{ url_for('index', page=pagination.pages) }}" aria-label="Last">
+                        <a href="{{ url_for('index', page=pagination.pages, q=request.args.get('q')) }}" aria-label="Last">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
