@@ -38,9 +38,7 @@ def rdkit_descriptors(mol):
 
     :param mol: the molecule to process
     """
-    dd = {}
-    for name, fn in INTERESTING_DESCRIPTORS.items():
-        dd[name] = fn(mol)
+    dd = {k:fn(mol) for k,fn in INTERESTING_DESCRIPTORS.items()}
 
     inchi = Chem.MolToInchi(mol, options='/SUU')
     inchi_info = InchiInfo.InchiInfo(inchi).get_sp3_stereo()
