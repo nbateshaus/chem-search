@@ -4,10 +4,8 @@ Encapsulate reading and formatting of PubChem
 
 import json
 
-import rdkit.Chem
-
 from Sdf import Sdf
-from rdkit_utils import rdkit_descriptors, rdkit_canonicalize, rdkit_smiles
+from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles
 
 
 class Pubchem(Sdf):
@@ -34,15 +32,11 @@ class Pubchem(Sdf):
         mol_to_dict( (Pubchem)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
-        # All the properties defined in the molecule, as-is
-        d = {p.lower() : self.cast(mol.GetProp(p)) for p in props}
+        d = {p.lower(): self.cast(mol.GetProp(p)) for p in props}
         d['id'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
 
         smiles = [mol.GetProp(p) for p in self.SMILES_PROPS if p in props]
-        try:
-            smiles.append(rdkit.Chem.MolToSmiles(mol, True)) # Original SMILES
-        except RuntimeError:
-            print(d['id'])
+        smiles.append(rdkit_smiles(mol))  # Original SMILES
 
         if smiles:
             d['smiles'] = list(set(smiles))
@@ -60,7 +54,7 @@ class Pubchem(Sdf):
             else:
                 del d['pubchem_compound_canonicalized']
 
-        rdkit_mol = rdkit_canonicalize(mol)
+        rdkit_mol = rdkit_standardize(mol)
         rs = rdkit_smiles(rdkit_mol)
         if rs is not None:
             d['rdkit_smiles'] = rs

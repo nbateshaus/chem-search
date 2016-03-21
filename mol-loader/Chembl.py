@@ -3,9 +3,8 @@ Encapsulate interaction with ChEMBLdb.
 """
 
 import psycopg2
-from rdkit import Chem
 
-from rdkit_utils import rdkit_canonicalize, rdkit_descriptors, rdkit_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_mol_from_smiles
 
 
 class Chembl:
@@ -36,19 +35,14 @@ class Chembl:
             s = d["smiles"]
             if s is not None:
                 smiles = [s]
-                try:
-                    mol = Chem.MolFromSmiles(s)
-                    rdkit_mol = rdkit_canonicalize(mol)
-                    rs = rdkit_smiles(rdkit_mol)
-                    if rs is not None:
-                        d['rdkit_smiles'] = rs
-                        smiles.append(rs)
-
-                    descs = rdkit_descriptors(rdkit_mol)
-                    for name in descs:
-                        d['rdkit_' + name.lower()] = descs[name]
-                except ValueError:
-                    pass
+                mol = rdkit_standardize(rdkit_mol_from_smiles(s))
+                rs = rdkit_smiles(mol)
+                if rs is not None:
+                    d['rdkit_smiles'] = rs
+                    smiles.append(rs)
+                descs = rdkit_descriptors(mol)
+                for name in descs:
+                    d['rdkit_' + name.lower()] = descs[name]
                 d["smiles"] = list(set(smiles))
             yield d
             row = cur.fetchone()
@@ -149,10 +143,11 @@ LEFT JOIN synonyms_agg syn       ON md.molregno = syn.molregno
 LEFT JOIN alerts_agg alrt        ON md.molregno = alrt.molregno
 '''
 
+
 def test_iter():
     c = Chembl("dbname=chembl_20", limit=10)
     for m in c:
         print(m)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     test_iter()

@@ -5,7 +5,7 @@ Encapsulate reading and formatting of SureChEMBL
 import json
 
 from Sdf import Sdf
-from rdkit_utils import rdkit_canonicalize, rdkit_descriptors, rdkit_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles
 
 
 class Surechembl(Sdf):
@@ -19,12 +19,11 @@ class Surechembl(Sdf):
         mol_to_dict( (Surechembl)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
-        # All the properties defined in the molecule, as-is
-        d = {p.lower() : self.cast(mol.GetProp(p)) for p in props}
+        d = {p.lower(): self.cast(mol.GetProp(p)) for p in props}
         d['id'] = 'https://www.surechembl.org/chemical/' + mol.GetProp('ID')
 
         smiles = []
-        rdkit_mol = rdkit_canonicalize(mol)
+        rdkit_mol = rdkit_standardize(mol)
         rs = rdkit_smiles(rdkit_mol)
         if rs is not None:
             d['rdkit_smiles'] = rs
