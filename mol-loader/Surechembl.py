@@ -19,8 +19,7 @@ class Surechembl(Sdf):
         mol_to_dict( (Surechembl)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
-        # All the properties defined in the molecule, as-is
-        d = {p.lower() : self.cast(mol.GetProp(p)) for p in props}
+        d = {p.lower(): self.cast(mol.GetProp(p)) for p in props}
         d['id'] = 'https://www.surechembl.org/chemical/' + mol.GetProp('ID')
 
         smiles = []

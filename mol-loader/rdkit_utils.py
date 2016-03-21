@@ -38,15 +38,16 @@ def rdkit_descriptors(mol):
 
     :param mol: the molecule to process
     """
-    dd = {k:fn(mol) for k,fn in INTERESTING_DESCRIPTORS.items()}
-
-    inchi = Chem.MolToInchi(mol, options='/SUU')
-    inchi_info = InchiInfo.InchiInfo(inchi).get_sp3_stereo()
-    (n_stereo, n_undef_stereo, is_meso, dummy) = inchi_info['main']['non-isotopic']
-    dd['NumChiralCenters'] = n_stereo
-    dd['NumDefinedChiralCenters'] = n_stereo - n_undef_stereo
-    dd['NumUndefinedChiralCenters'] = n_undef_stereo
-    dd['IsMesoStructure'] = is_meso
+    dd = {}
+    if mol is not None:
+        dd = {k:fn(mol) for k,fn in INTERESTING_DESCRIPTORS.items()}
+        inchi = Chem.MolToInchi(mol, options='/SUU')
+        inchi_info = InchiInfo.InchiInfo(inchi).get_sp3_stereo()
+        (n_stereo, n_undef_stereo, is_meso, dummy) = inchi_info['main']['non-isotopic']
+        dd['NumChiralCenters'] = n_stereo
+        dd['NumDefinedChiralCenters'] = n_stereo - n_undef_stereo
+        dd['NumUndefinedChiralCenters'] = n_undef_stereo
+        dd['IsMesoStructure'] = is_meso
 
     return dd
 
@@ -55,23 +56,34 @@ def rdkit_standardize(mol):
     """
     Generate a canonical representation of a molecule.
 
-    canonicalize( (rdkit.Chem.Mol)mol ) -> rdkit.Chem.Mol
+    rdkit_standardize( (rdkit.Chem.Mol)mol ) -> rdkit.Chem.Mol
 
     On error, returns None
     """
-    canon = None
-    try:
-        canon = Chem.RemoveHs(mol)
-    except ValueError:
-        pass
-    return canon
+    std = None
+    if mol is not None:
+        try:
+            std = Chem.RemoveHs(mol)
+        except ValueError:
+            pass
+    return std
 
 
 def rdkit_smiles(mol):
     smiles = None
     if mol is not None:
         try:
-            smiles = Chem.MolToSmiles(mol, True)
-        except RuntimeError:
+            smiles = Chem.MolToSmiles(mol, isomericSmiles=True)
+        except (RuntimeError, ValueError):
             pass
     return smiles
+
+
+def rdkit_mol_from_smiles(smiles):
+    mol = None
+    if smiles is not None:
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+        except ValueError:
+            pass
+    return mol
