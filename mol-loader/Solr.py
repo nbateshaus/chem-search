@@ -94,7 +94,7 @@ class Solr:
             if (o - int(o)) == 0:
                 return 'tlong'
             return 'tdouble'
-        # For short strings, use "sting", because they will be used mainly as labels.
+        # For short strings, use "string", because they will be used mainly as labels.
         # For long strings, use "text_general", because they will be used mainly for search.
         # '64' is a somewhat arbitrary cut-off between 'short' and 'long'
         if len(o) < 64:
