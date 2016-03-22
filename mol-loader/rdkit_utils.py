@@ -40,14 +40,17 @@ def rdkit_descriptors(mol):
     """
     dd = {}
     if mol is not None:
-        dd = {k:fn(mol) for k,fn in INTERESTING_DESCRIPTORS.items()}
-        inchi = Chem.MolToInchi(mol, options='/SUU')
-        inchi_info = InchiInfo.InchiInfo(inchi).get_sp3_stereo()
-        (n_stereo, n_undef_stereo, is_meso, dummy) = inchi_info['main']['non-isotopic']
-        dd['NumChiralCenters'] = n_stereo
-        dd['NumDefinedChiralCenters'] = n_stereo - n_undef_stereo
-        dd['NumUndefinedChiralCenters'] = n_undef_stereo
-        dd['IsMesoStructure'] = is_meso
+        try:
+            dd = {k:fn(mol) for k,fn in INTERESTING_DESCRIPTORS.items()}
+            inchi = Chem.MolToInchi(mol, options='/SUU')
+            inchi_info = InchiInfo.InchiInfo(inchi).get_sp3_stereo()
+            (n_stereo, n_undef_stereo, is_meso, dummy) = inchi_info['main']['non-isotopic']
+            dd['NumChiralCenters'] = n_stereo
+            dd['NumDefinedChiralCenters'] = n_stereo - n_undef_stereo
+            dd['NumUndefinedChiralCenters'] = n_undef_stereo
+            dd['IsMesoStructure'] = is_meso
+        except (ValueError):
+            pass
 
     return dd
 
@@ -77,7 +80,6 @@ def rdkit_smiles(mol):
         except (RuntimeError, ValueError):
             pass
     return smiles
-
 
 def rdkit_mol_from_smiles(smiles):
     mol = None
