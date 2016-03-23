@@ -34,8 +34,8 @@ def index():
         {header for doc in results.docs for header in doc.keys() if include_field(header)}
     )
     headers.sort()
-    rows = [[doc[header] if header in doc else '' for header in headers] for doc in results.docs]
-    pagination = Pagination(page, int(results.hits / PAGE_SIZE), PAGE_SIZE)
+    rows = [{header:doc[header] if header in doc else '' for header in headers} for doc in results.docs]
+    pagination = Pagination(page, int(results.hits / PAGE_SIZE) + 1, PAGE_SIZE)
     g.qtime = results.qtime
 
     return render_template(

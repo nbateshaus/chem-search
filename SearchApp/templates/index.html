@@ -114,15 +114,25 @@
                 </div>
                 <table class="table table-striped">
                     <tr>
+                            <th>&nbsp;</th>
                         {% for header in headers %}
                             <th>{{ header }}</th>
                         {% endfor %}
                     </tr>
                     {% for row in rows %}
                         <tr>
-                            {% for value in row %}
+                            <td>
+                                {% if row['rdkit_smiles'] != '' %}
+                                    <img width="100" height="100"
+                                         src="{{ url_for('render', smiles=row['rdkit_smiles'], width=100, height=100) }}"
+                                     />
+                                {% else %}
+                                    &nbsp;
+                                {% endif %}
+                            </td>
+                            {% for header in headers %}
                                 <!-- TODO: handle list values -->
-                                <td>{{ value }}</td>
+                                <td>{{ row[header] }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
