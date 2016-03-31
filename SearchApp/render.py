@@ -1,14 +1,13 @@
 from io import BytesIO
 
-from flask import abort, request, send_file
+from flask import abort, request, make_response
 from rdkit import Chem
-from rdkit.Chem import AllChem
-from rdkit.Chem import Draw
+from rdkit.Chem.Draw import rdMolDraw2D
 
 from SearchApp import app
 
 
-@app.route('/render')
+@app.route('/render/img.svg')
 def render():
     args = request.args.to_dict()
     if 'smiles' in args:
@@ -21,13 +20,18 @@ def render():
                 height = int(args['height'])
             else:
                 height = 300
+            if 'kekulize' in args:
+                kekulize = bool(args['kekulize'])
+            else:
+                kekulize = True
             mol = Chem.MolFromSmiles(args['smiles'])
-            AllChem.Compute2DCoords(mol)
-            img=Draw.MolToImage(mol, size=(width, height))
-            img_io = BytesIO()
-            img.save(img_io, 'PNG')
-            img_io.seek(0)
-            return send_file(img_io, mimetype='image/png')
+            mc = rdMolDraw2D.PrepareMolForDrawing(mol, kekulize=kekulize)
+            drawer = rdMolDraw2D.MolDraw2DSVG(width,height)
+            drawer.DrawMolecule(mc)
+            drawer.FinishDrawing()
+            response = make_response(drawer.GetDrawingText())
+            response.headers['Content-Type'] = 'image/svg+xml'
+            return response
         except:
-            abort(500)
+                abort(500)
     abort(400)

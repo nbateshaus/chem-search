@@ -105,13 +105,6 @@
         </div>
         <div class="col-sm-9">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    Results: showing
-                      {{ (pagination.page - 1) * pagination.page_size + 1 }} -
-                      {{ pagination.page * pagination.page_size}} of about
-                      {{ pagination.pages * pagination.page_size }}
-                      <span class="badge">{{ g.qtime }}ms</span>
-                </div>
                 <table class="table table-striped">
                     <tr>
                             <th>&nbsp;</th>
@@ -138,66 +131,62 @@
                     {% endfor %}
                 </table>
             </div>
-            <ul class="pagination pull-right">
-                <li class="previous{% if pagination.page == 1 %} disabled{% endif %}">
-                    <a href="{{ url_for('index', page=1, q=request.args.get('q')) }}"
-                       aria-label="First">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                {% if pagination.page > 2 %}
-                    <li>
-                        <a href="{{ url_for('index', page=pagination.page - 2, q=request.args.get('q')) }}">
-                            {{ pagination.page - 2 }}
-                        </a>
-                    </li>
-                {% endif %}
-                {% if pagination.page > 1 %}
-                    <li>
-                        <a href="{{ url_for('index', page=pagination.page - 1, q=request.args.get('q')) }}">
-                            {{ pagination.page - 1 }}
-                        </a>
-                    </li>
-                {% endif %}
-                <li class="active"><a href="#">{{ pagination.page }}</a></li>
-                {% if (pagination.pages - pagination.page) > 1 %}
-                    <li>
-                        <a href="{{ url_for('index', page=pagination.page + 1, q=request.args.get('q')) }}">
-                            {{ pagination.page + 1 }}
-                        </a>
-                    </li>
-                {% endif %}
-                {% if (pagination.pages - pagination.page) > 2 %}
-                    <li>
-                        <a href="{{ url_for('index', page=pagination.page + 2, q=request.args.get('q')) }}">
-                            {{ pagination.page + 2 }}
-                        </a>
-                    </li>
-                {% endif %}
-                <li class="next{% if pagination.page == pagination.pages %} disabled{% endif %}">
-                    <a href="{{ url_for('index', page=pagination.pages, q=request.args.get('q')) }}"
-                          aria-label="Last">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
         </div>
     </div>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#navbar-bottom-collapse" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">ChemSearch</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-bottom-collapse">
-                <!-- Anything else we want to put down bottom -->
-            </div>
+            <nav class="navbar-right">
+                <p class="nav navbar-text">
+                    Showing results
+                    {{ (pagination.page - 1) * pagination.page_size + 1 }} -
+                    {{ pagination.page * pagination.page_size}} of
+                    {{ pagination.hits }}
+                    <span class="badge">{{ g.qtime }}ms</span>
+                </p>
+                <ul class="pagination">
+                    <li class="previous{% if pagination.page == 1 %} disabled{% endif %}">
+                        <a href="{{ url_for('index', page=1, q=request.args.get('q')) }}"
+                           aria-label="First">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% if pagination.page > 2 %}
+                        <li>
+                            <a href="{{ url_for('index', page=pagination.page - 2, q=request.args.get('q')) }}">
+                                {{ pagination.page - 2 }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if pagination.page > 1 %}
+                        <li>
+                            <a href="{{ url_for('index', page=pagination.page - 1, q=request.args.get('q')) }}">
+                                {{ pagination.page - 1 }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="active"><a href="#">{{ pagination.page }}</a></li>
+                    {% if (pagination.pages - pagination.page) > 1 %}
+                        <li>
+                            <a href="{{ url_for('index', page=pagination.page + 1, q=request.args.get('q')) }}">
+                                {{ pagination.page + 1 }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if (pagination.pages - pagination.page) > 2 %}
+                        <li>
+                            <a href="{{ url_for('index', page=pagination.page + 2, q=request.args.get('q')) }}">
+                                {{ pagination.page + 2 }}
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li class="next{% if pagination.page == pagination.pages %} disabled{% endif %}">
+                        <a href="{{ url_for('index', page=pagination.pages, q=request.args.get('q')) }}"
+                           aria-label="Last">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </nav>
 </div>

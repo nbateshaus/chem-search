@@ -9,10 +9,11 @@ PAGE_SIZE = 10
 
 
 class Pagination:
-    def __init__(self, page, pages, page_size):
+    def __init__(self, page, pages, page_size, hits):
         self.page = page
         self.pages = pages
         self.page_size = page_size
+        self.hits = hits
 
 
 def include_field(field):
@@ -46,7 +47,7 @@ def index():
     )
     headers.sort()
     rows = [{header: doc[header] if header in doc else '' for header in headers} for doc in results.docs]
-    pagination = Pagination(page, int(results.hits / PAGE_SIZE) + 1, PAGE_SIZE)
+    pagination = Pagination(page, int(results.hits / PAGE_SIZE) + 1, PAGE_SIZE, results.hits)
     g.qtime = results.qtime
 
     return render_template(
