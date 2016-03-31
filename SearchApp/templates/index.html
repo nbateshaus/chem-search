@@ -124,7 +124,7 @@
                             <td>
                                 {% if row['rdkit_smiles'] != '' %}
                                     <img width="100" height="100"
-                                         src="{{ url_for('render', smiles=row['rdkit_smiles'], width=100, height=100) }}"
+                                         src="{{ url_for('render', smiles=row['RDKit_SMILES'], width=100, height=100) }}"
                                      />
                                 {% else %}
                                     &nbsp;
