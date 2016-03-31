@@ -4,7 +4,7 @@ Encapsulate interaction with ChEMBLdb.
 
 import psycopg2
 
-from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_mol_from_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_mol_from_smiles, rdkit_fps_from_mol
 
 
 class Chembl:
@@ -36,13 +36,18 @@ class Chembl:
             if s is not None:
                 smiles = [s]
                 mol = rdkit_standardize(rdkit_mol_from_smiles(s))
-                rs = rdkit_smiles(mol)
-                if rs is not None:
-                    d['rdkit_smiles'] = rs
-                    smiles.append(rs)
-                descs = rdkit_descriptors(mol)
-                for name in descs:
-                    d['rdkit_' + name.lower()] = descs[name]
+                if mol is not None:
+                    fps, fps_bits = rdkit_fps_from_mol(mol)
+                    d['rdkit_fingerprint'] = fps
+                    d['rdkit_fingerprint_bits'] = fps_bits
+
+                    rs = rdkit_smiles(mol)
+                    if rs is not None:
+                        d['rdkit_smiles'] = rs
+                        smiles.append(rs)
+                    descs = rdkit_descriptors(mol)
+                    for name in descs:
+                        d['rdkit_' + name.lower()] = descs[name]
                 d["smiles"] = list(set(smiles))
             yield d
             row = cur.fetchone()
