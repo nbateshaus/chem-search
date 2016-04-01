@@ -116,6 +116,9 @@ class Solr:
                     'facet': True,
                     'details': True
                 }
+                auth = self._guess_authority(key)
+                if auth:
+                    field['authority'] = auth
                 self.fields[key] = field
                 new_fields.append(field)
         for key in deferred:
@@ -128,6 +131,9 @@ class Solr:
                 'facet': True,
                 'details': True
             }
+            auth = self._guess_authority(key)
+            if auth:
+                field['authority'] = auth
             self.fields[key] = field
             new_fields.append(field)
         if new_fields:
@@ -160,6 +166,23 @@ class Solr:
         if len(o) < 64:
             return 'string'
         return 'text_general'
+
+    @staticmethod
+    def _guess_authority(name):
+        parts = name.split('_')
+        if parts:
+            auth = parts[0]
+            if auth == 'CHEMBL':
+                auth = 'ChEMBL'
+            elif auth == 'PUBCHEM':
+                auth = 'PubChem'
+            elif auth == 'SURECHEMBL':
+                auth = 'SureChEMBL'
+            elif auth == 'RDKIT':
+                auth = 'RDKit'
+            return auth
+        else:
+            return None
 
     def _post_fields(self, new_fields):
         # We store more than Solr consumes. Strip out stuff not supported by Solr.

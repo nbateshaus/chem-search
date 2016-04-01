@@ -27,12 +27,12 @@ class Chembl:
             q += "LIMIT {0}".format(self.limit) # TODO: use SQL parameters
         cur = psycopg2.connect(self.dsn).cursor()
         cur.execute(q)
-        cols = [col[0] for col in cur.description]
+        cols = ['ChEMBL_' + col[0] for col in cur.description]
         row = cur.fetchone()
         while row is not None:
             d = dict(zip(cols, row))
-            d["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["chembl_id"]
-            s = d["smiles"]
+            d["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["ChEMBL_chembl_id"]
+            s = d["ChEMBL_smiles"]
             if s is not None:
                 smiles = [s]
                 mol = rdkit_standardize(rdkit_mol_from_smiles(s))
