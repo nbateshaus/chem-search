@@ -145,8 +145,7 @@ def rdkit_minhash_signature(mol, width):
                 for i in range(int(len(digest)/8)):
                     val ^= int.from_bytes(digest[8 * i:8 * (i + 1)], 'little', signed=True)
                 all_hashes.append(val)
-            all_hashes = list(set(all_hashes))
-            all_hashes.sort()
+            all_hashes = sorted(set(all_hashes))
             sig = all_hashes[:width]
         except ValueError:
             pass

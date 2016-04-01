@@ -1,5 +1,3 @@
-from io import BytesIO
-
 from flask import abort, request, make_response
 from rdkit import Chem
 from rdkit.Chem.Draw import rdMolDraw2D
@@ -7,7 +5,7 @@ from rdkit.Chem.Draw import rdMolDraw2D
 from SearchApp import app
 
 
-@app.route('/render/img.svg')
+@app.route('/render')
 def render():
     args = request.args.to_dict()
     if 'smiles' in args:

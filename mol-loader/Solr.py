@@ -6,17 +6,41 @@ Encapsulate interaction with Solr
 
 import os.path
 from decimal import Decimal
-from json import dumps, loads, JSONEncoder
+from json import dump, dumps, load, loads, JSONEncoder
 
 import requests
 
 
 class Solr:
+    SCHEMA_FILE = 'schema.json'
+    SOLR_SCHEMA_PROPS = {
+        "name",
+        "type",
+        "default",
+        "indexed",
+        "stored",
+        "docValues",
+        "sortMissingFirst",
+        "sortMissingLast",
+        "multiValued",
+        "omitNorms",
+        "omitTermFreqAndPositions",
+        "omitPositions",
+        "termVectors",
+        "termPositions",
+        "termOffsets",
+        "termPayloads",
+        "required",
+        "uniqueKey",
+        "useDocValuesAsStored"
+    }
+
     def __init__(self, url, core, chunk_size=1000):
         self.url = url
         self.core = core
         self.chunk_size = chunk_size
         self.fields = { }
+        self._load_fields()
 
     # Built-in JSON can't serialize Decimals
     # Use like this: json.dumps(o, cls=__JsonDecimalEncoder)
@@ -43,6 +67,18 @@ class Solr:
         if len(chunk) != 0:
                 self._post_chunk(chunk)
 
+    def _load_fields(self):
+        if os.access(self.SCHEMA_FILE, os.R_OK):
+            with open(self.SCHEMA_FILE, 'r') as f:
+                tmp_fields = load(f)
+            self.fields = {field['name']: field for field in tmp_fields}
+
+    def _save_fields(self):
+        keys = sorted([key for key in self.fields.keys()])
+        tmp_fields = [self.fields[key] for key in keys]
+        with open(self.SCHEMA_FILE, 'w') as f:
+            dump(tmp_fields, f, indent=4)
+
     def _post_chunk(self, chunk):
         url = os.path.join(self.url, self.core, 'update') + '?commit=true'
         headers = {'Content-Type' : 'application/json'}
@@ -54,25 +90,48 @@ class Solr:
         url = os.path.join(self.url, self.core, 'schema/fields')
         response = requests.get(url, params={'wt': 'json'})
         fields = loads(response.text)['fields']
-        self.fields = {f['name']: f for f in fields}
+        fields = {f['name']: f for f in fields}
+        for f in fields.keys():
+            if f not in self.fields:
+                self.fields[f] = fields[f]
         print("Solr has {0} fields defined.".format(len(self.fields)))
 
     def _new_fields(self, mol):
         new_fields = []
+        deferred = set()
         for key, val in mol.items():
             if key not in self.fields.keys():
                 type = self._guess_type(val)
                 if type is None:
                     # Skip this one; hopefully, another record will have a value for this field.
-                    continue
+                    deferred.add(key)
+                elif key in deferred:
+                    deferred.remove(key)
                 field = {
                     'name': key,
                     'indexed': True,
                     'stored': True,
-                    'type': type
+                    'type': type,
+                    'list': False,
+                    'facet': True,
+                    'details': True
                 }
                 self.fields[key] = field
                 new_fields.append(field)
+        for key in deferred:
+            field = {
+                'name': key,
+                'indexed': True,
+                'stored': True,
+                'type': 'text_general',  # Default, permissive type
+                'list': False,
+                'facet': True,
+                'details': True
+            }
+            self.fields[key] = field
+            new_fields.append(field)
+        if new_fields:
+            self._save_fields()
         return new_fields
 
     def _guess_type(self, o):
@@ -103,6 +162,8 @@ class Solr:
         return 'text_general'
 
     def _post_fields(self, new_fields):
+        # We store more than Solr consumes. Strip out stuff not supported by Solr.
+        new_fields = [{k: f[k] for k in f.keys() if k in self.SOLR_SCHEMA_PROPS} for f in new_fields]
         url = os.path.join(self.url, self.core, 'schema/fields') + '?commit=true'
         headers = {'Content-Type' : 'application/json'}
         # As of Solr version 5.4.1:

@@ -1,7 +1,6 @@
 import pysolr
 from flask import render_template, request, g
-from rdkit.Chem import MolFromSmiles, MolToSmiles
-
+from rdkit.Chem import MolFromSmiles
 
 from SearchApp import app
 
@@ -17,7 +16,7 @@ class Pagination:
 
 
 def include_field(field):
-    return field.startswith('RDKit_') or field == 'id'
+    return app.config['schema'][field]['list'] if field in app.config['schema'] else False
 
 
 @app.route('/')
@@ -37,15 +36,18 @@ def index():
                 # Use RawQueryParser, so all the special riff-raff in SMILES don't confuzzle Solr
                 # https://cwiki.apache.org/confluence/display/solr/Other+Parsers#OtherParsers-RawQueryParser
                 q = '{{!raw f=SMILES}}{0}'.format(q)
+                print('SMILES Query')
         except ValueError:
             pass
     start = int((page - 1) * PAGE_SIZE)
     solr = pysolr.Solr('http://localhost:8983/solr/molecules/')
     results = solr.search(q=q, start=start, rows=PAGE_SIZE)
-    headers = list(
-        {header for doc in results.docs for header in doc.keys() if include_field(header)}
+    headers = sorted(
+        sorted(
+            {header for doc in results.docs for header in doc.keys() if include_field(header)}
+        ),
+        key=lambda field: app.config['schema'][field]['listOrder'] if field in app.config['schema'] else 0
     )
-    headers.sort()
     rows = [{header: doc[header] if header in doc else '' for header in headers} for doc in results.docs]
     pagination = Pagination(page, int(results.hits / PAGE_SIZE) + 1, PAGE_SIZE, results.hits)
     g.qtime = results.qtime
