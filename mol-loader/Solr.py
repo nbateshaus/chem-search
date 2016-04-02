@@ -35,8 +35,9 @@ class Solr:
             chunk.append(mol)
             new_fields += self._new_fields(mol)
             if len(chunk) == self.chunk_size:
-                self._post_fields(new_fields)
-                new_fields = []
+                if new_fields:
+                    self._post_fields(new_fields)
+                    new_fields = []
                 self._post_chunk(chunk)
                 chunk = []
         if len(chunk) != 0:
@@ -135,6 +136,7 @@ def test_guess_type():
            == 'text_general')
     assert(solr._guess_type(['A ford is a fine kind of truck, whether it be a small, pickup style or a large semi-trailer. Either will serve you reliably for many years to come.'])
            == 'text_general')
+
 
 def test_postall():
     mols = [{
