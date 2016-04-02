@@ -5,6 +5,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_acd_logd",
         "stored": true,
         "type": "tdouble"
@@ -15,6 +16,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_acd_logp",
         "stored": true,
         "type": "tdouble"
@@ -25,6 +27,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_acd_most_apka",
         "stored": true,
         "type": "tdouble"
@@ -45,9 +48,10 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": true,
         "name": "ChEMBL_alerts",
         "stored": true,
-        "type": "strings"
+        "type": "string"
     },
     {
         "authority": "ChEMBL",
@@ -55,6 +59,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_alogp",
         "stored": true,
         "type": "tdouble"
@@ -65,6 +70,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_aromatic_rings",
         "stored": true,
         "type": "tlong"
@@ -85,6 +91,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_black_box_warning",
         "stored": true,
         "type": "boolean"
@@ -107,6 +114,7 @@
         "indexed": true,
         "list": true,
         "listOrder": -30,
+        "multiValued": false,
         "name": "ChEMBL_chembl_id",
         "stored": true,
         "type": "string"
@@ -127,6 +135,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_dosed_ingredient",
         "stored": true,
         "type": "boolean"
@@ -147,6 +156,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_first_in_class",
         "stored": true,
         "type": "boolean"
@@ -157,6 +167,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_full_molformula",
         "stored": true,
         "type": "string"
@@ -167,6 +178,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_full_mwt",
         "stored": true,
         "type": "tdouble"
@@ -177,6 +189,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_hba",
         "stored": true,
         "type": "tlong"
@@ -187,6 +200,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_hba_lipinski",
         "stored": true,
         "type": "tlong"
@@ -197,6 +211,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_hbd",
         "stored": true,
         "type": "tlong"
@@ -207,6 +222,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_hbd_lipinski",
         "stored": true,
         "type": "tlong"
@@ -217,6 +233,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_heavy_atom_count",
         "stored": true,
         "type": "tlong"
@@ -237,6 +254,7 @@
         "facet": true,
         "indexed": false,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_inchi",
         "stored": true,
         "type": "string"
@@ -247,6 +265,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_inchi_key",
         "stored": true,
         "type": "string"
@@ -257,6 +276,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_indication_class",
         "stored": true,
         "type": "string"
@@ -267,6 +287,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_inorganic",
         "stored": true,
         "type": "boolean"
@@ -277,6 +298,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_max_phase",
         "stored": true,
         "type": "tlong"
@@ -287,6 +309,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_med_chem_friendly",
         "stored": true,
         "type": "boolean"
@@ -297,6 +320,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_molecular_species",
         "stored": true,
         "type": "string"
@@ -307,6 +331,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_molecule_type",
         "stored": true,
         "type": "string"
@@ -317,6 +342,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_molregno",
         "stored": true,
         "type": "tlong"
@@ -327,6 +353,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_monoisotopic_weight",
         "stored": true,
         "type": "tdouble"
@@ -337,6 +364,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_mw_freebase",
         "stored": true,
         "type": "tdouble"
@@ -347,6 +375,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_natural_product",
         "stored": true,
         "type": "boolean"
@@ -357,6 +386,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_num_alerts",
         "stored": true,
         "type": "tlong"
@@ -367,6 +397,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_num_lipinski_ro5_violations",
         "stored": true,
         "type": "tlong"
@@ -377,6 +408,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_num_ro5_violations",
         "stored": true,
         "type": "tlong"
@@ -387,6 +419,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_oral",
         "stored": true,
         "type": "boolean"
@@ -397,6 +430,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_parenteral",
         "stored": true,
         "type": "boolean"
@@ -407,6 +441,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_polymer",
         "stored": true,
         "type": "boolean"
@@ -427,6 +462,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_prodrug",
         "stored": true,
         "type": "boolean"
@@ -437,6 +473,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_psa",
         "stored": true,
         "type": "tdouble"
@@ -447,6 +484,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_qed_weighted",
         "stored": true,
         "type": "tdouble"
@@ -457,6 +495,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_ro3_pass",
         "stored": true,
         "type": "boolean"
@@ -467,6 +506,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_rtb",
         "stored": true,
         "type": "tlong"
@@ -478,6 +518,7 @@
         "indexed": false,
         "list": true,
         "listOrder": -10,
+        "multiValued": false,
         "name": "ChEMBL_smiles",
         "stored": true,
         "type": "string"
@@ -488,6 +529,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_structure_type",
         "stored": true,
         "type": "string"
@@ -508,6 +550,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_therapeutic",
         "stored": true,
         "type": "boolean"
@@ -518,6 +561,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "ChEMBL_topical",
         "stored": true,
         "type": "boolean"
@@ -564,27 +608,10 @@
     },
     {
         "indexed": true,
+        "multiValued": false,
         "name": "ID",
         "stored": true,
         "type": "string"
-    },
-    {
-        "indexed": true,
-        "name": "InChI",
-        "stored": true,
-        "type": "text_general"
-    },
-    {
-        "indexed": true,
-        "name": "InChIKey",
-        "stored": true,
-        "type": "string"
-    },
-    {
-        "indexed": true,
-        "name": "MW",
-        "stored": true,
-        "type": "tdouble"
     },
     {
         "authority": "PubChem",
@@ -592,6 +619,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_ATOM_DEF_STEREO_COUNT",
         "stored": true,
         "type": "tlong"
@@ -602,6 +630,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_ATOM_UDEF_STEREO_COUNT",
         "stored": true,
         "type": "tlong"
@@ -622,6 +651,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_BOND_DEF_STEREO_COUNT",
         "stored": true,
         "type": "tlong"
@@ -632,6 +662,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_BOND_UDEF_STEREO_COUNT",
         "stored": true,
         "type": "tlong"
@@ -642,6 +673,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_COMPLEXITY",
         "stored": true,
         "type": "tlong"
@@ -652,6 +684,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_HBOND_ACCEPTOR",
         "stored": true,
         "type": "tlong"
@@ -662,6 +695,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_HBOND_DONOR",
         "stored": true,
         "type": "tlong"
@@ -672,6 +706,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_ROTATABLE_BOND",
         "stored": true,
         "type": "tlong"
@@ -692,6 +727,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_TAUTO_COUNT",
         "stored": true,
         "type": "tlong"
@@ -702,6 +738,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_CACTVS_TPSA",
         "stored": true,
         "type": "tlong"
@@ -712,6 +749,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_COMPONENT_COUNT",
         "stored": true,
         "type": "tlong"
@@ -722,6 +760,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_COMPOUND_CANONICALIZED",
         "stored": true,
         "type": "boolean"
@@ -734,6 +773,7 @@
         "indexed": true,
         "list": true,
         "listOrder": -30,
+        "multiValued": false,
         "name": "PUBCHEM_COMPOUND_CID",
         "stored": true,
         "type": "tlong"
@@ -744,6 +784,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_COORDINATE_TYPE",
         "stored": true,
         "type": "string"
@@ -754,6 +795,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_EXACT_MASS",
         "stored": true,
         "type": "tdouble"
@@ -764,6 +806,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_HEAVY_ATOM_COUNT",
         "stored": true,
         "type": "tlong"
@@ -774,6 +817,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_ISOTOPIC_ATOM_COUNT",
         "stored": true,
         "type": "tlong"
@@ -794,6 +838,7 @@
         "facet": true,
         "indexed": false,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_IUPAC_INCHI",
         "stored": true,
         "type": "string"
@@ -804,6 +849,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_IUPAC_INCHIKEY",
         "stored": true,
         "type": "string"
@@ -854,6 +900,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_MOLECULAR_FORMULA",
         "stored": true,
         "type": "string"
@@ -864,6 +911,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_MOLECULAR_WEIGHT",
         "stored": true,
         "type": "tdouble"
@@ -874,6 +922,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_MONOISOTOPIC_WEIGHT",
         "stored": true,
         "type": "tdouble"
@@ -884,6 +933,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_NONSTANDARDBOND",
         "stored": true,
         "type": "string"
@@ -914,6 +964,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_TOTAL_CHARGE",
         "stored": true,
         "type": "tlong"
@@ -924,6 +975,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_XLOGP3",
         "stored": true,
         "type": "tdouble"
@@ -934,6 +986,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "PUBCHEM_XLOGP3_AA",
         "stored": true,
         "type": "tdouble"
@@ -949,6 +1002,7 @@
         ],
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_ExactMolWt",
         "stored": true,
         "type": "tdouble"
@@ -971,6 +1025,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_Fingerprint_bits",
         "stored": true,
         "type": "tlong"
@@ -983,6 +1038,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_FractionCSP3",
         "stored": true,
         "type": "tdouble"
@@ -994,6 +1050,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_HeavyAtomCount",
         "stored": true,
         "type": "tlong"
@@ -1005,6 +1062,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_IsMesoStructure",
         "stored": true,
         "type": "boolean"
@@ -1014,6 +1072,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_LabuteASA",
         "stored": true,
         "type": "tdouble"
@@ -1023,6 +1082,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_MolLogP",
         "stored": true,
         "type": "tdouble"
@@ -1032,6 +1092,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_MolWt",
         "stored": true,
         "type": "tdouble"
@@ -1041,6 +1102,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NHOHCount",
         "stored": true,
         "type": "tlong"
@@ -1050,6 +1112,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NOCount",
         "stored": true,
         "type": "tlong"
@@ -1059,6 +1122,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAliphaticCarbocycles",
         "stored": true,
         "type": "tlong"
@@ -1068,6 +1132,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAliphaticHeterocycles",
         "stored": true,
         "type": "tlong"
@@ -1077,6 +1142,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAliphaticRings",
         "stored": true,
         "type": "tlong"
@@ -1086,6 +1152,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAmideBonds",
         "stored": true,
         "type": "tlong"
@@ -1095,6 +1162,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAromaticCarbocycles",
         "stored": true,
         "type": "tlong"
@@ -1104,6 +1172,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAromaticHeterocycles",
         "stored": true,
         "type": "tlong"
@@ -1113,6 +1182,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumAromaticRings",
         "stored": true,
         "type": "tlong"
@@ -1122,6 +1192,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumBridgeheadAtoms",
         "stored": true,
         "type": "tlong"
@@ -1131,6 +1202,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumChiralCenters",
         "stored": true,
         "type": "tlong"
@@ -1140,6 +1212,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumDefinedChiralCenters",
         "stored": true,
         "type": "tlong"
@@ -1149,6 +1222,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumHAcceptors",
         "stored": true,
         "type": "tlong"
@@ -1158,6 +1232,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumHDonors",
         "stored": true,
         "type": "tlong"
@@ -1167,6 +1242,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumRotatableBonds",
         "stored": true,
         "type": "tlong"
@@ -1176,6 +1252,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumSaturatedCarbocycles",
         "stored": true,
         "type": "tlong"
@@ -1185,6 +1262,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumSaturatedHeterocycles",
         "stored": true,
         "type": "tlong"
@@ -1194,6 +1272,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumSaturatedRings",
         "stored": true,
         "type": "tlong"
@@ -1203,6 +1282,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumSpiroAtom",
         "stored": true,
         "type": "tlong"
@@ -1212,6 +1292,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_NumUndefinedChiralCenters",
         "stored": true,
         "type": "tlong"
@@ -1221,6 +1302,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_RingCount",
         "stored": true,
         "type": "tlong"
@@ -1234,6 +1316,7 @@
         "indexed": true,
         "list": true,
         "listOrder": -10,
+        "multiValued": false,
         "name": "RDKit_SMILES",
         "stored": true,
         "type": "string"
@@ -1243,6 +1326,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_TPSA",
         "stored": true,
         "type": "tdouble"
@@ -1254,9 +1338,10 @@
         "indexed": true,
         "list": true,
         "listOrder": -10,
+        "multiValued": true,
         "name": "SMILES",
         "stored": true,
-        "type": "strings"
+        "type": "string"
     },
     {
         "authority": "SureChEMBL",
@@ -1284,6 +1369,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "SureChEMBL_InChIKey",
         "stored": true,
         "type": "string"
@@ -1294,6 +1380,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "SureChEMBL_MW",
         "stored": true,
         "type": "tdouble"
@@ -1305,6 +1392,7 @@
         "indexed": true,
         "list": true,
         "listOrder": -20,
+        "multiValued": false,
         "name": "URL",
         "stored": true,
         "type": "string"
@@ -1314,6 +1402,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "_root_",
         "stored": false,
         "type": "string"
@@ -1333,6 +1422,7 @@
         "facet": true,
         "indexed": true,
         "list": false,
+        "multiValued": false,
         "name": "_version_",
         "stored": true,
         "type": "long"
@@ -1358,8 +1448,9 @@
         "indexed": true,
         "list": true,
         "listOrder": -30,
+        "multiValued": true,
         "name": "synonyms",
         "stored": true,
-        "type": "strings"
+        "type": "string"
     }
 ]

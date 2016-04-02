@@ -53,15 +53,12 @@ class Solr:
     def postall(self, mols):
         """Post all molecules in a sequence"""
         chunk = []
-        self._get_fields()
-        new_fields = []
+        new_fields = {}
         for mol in mols:
             chunk.append(mol)
-            new_fields += self._new_fields(mol)
+            new_fields.update(self._new_fields_in_mol(mol))
             if len(chunk) == self.chunk_size:
-                if new_fields:
-                    self._post_fields(new_fields)
-                    new_fields = []
+                self._reconcile_schema(new_fields)
                 self._post_chunk(chunk)
                 chunk = []
         if len(chunk) != 0:
@@ -86,86 +83,86 @@ class Solr:
         print("Posting {0} molecules to Solr at {1}".format(len(chunk), url))
         requests.post(url, headers=headers, data=data)
 
-    def _get_fields(self):
+    def _reconcile_schema(self, missing_from_file):
+        for f in missing_from_file:
+            if f not in self.fields:
+                self.fields[f] = missing_from_file[f]
+
+        # Find any fields not in our save file, add and save them
         url = os.path.join(self.url, self.core, 'schema/fields')
         response = requests.get(url, params={'wt': 'json'})
-        fields = loads(response.text)['fields']
-        fields = {f['name']: f for f in fields}
-        for f in fields.keys():
+        solr_fields = loads(response.text)['fields']
+        solr_fields = {f['name']: f for f in solr_fields}
+        for f in solr_fields.keys():
             if f not in self.fields:
-                self.fields[f] = fields[f]
-        print("Solr has {0} fields defined.".format(len(self.fields)))
+                missing_from_file[f] = solr_fields[f]
+                self.fields[f] = solr_fields[f]
+        if missing_from_file:
+            print('Saving fields {0}'.format(missing_from_file.keys()))
+            self._save_fields()
 
-    def _new_fields(self, mol):
-        new_fields = []
-        deferred = set()
+        # Find any fields not in Solr, add and post them
+        missing_from_solr = []
+        for f in self.fields.keys():
+            if f not in solr_fields:
+                missing_from_solr.append(self.fields[f])
+        if missing_from_solr:
+            self._post_fields(missing_from_solr)
+
+    def _new_fields_in_mol(self, mol):
+        new_fields = {}
+        deferred = {}
         for key, val in mol.items():
-            if key not in self.fields.keys():
-                type = self._guess_type(val)
-                if type is None:
-                    # Skip this one; hopefully, another record will have a value for this field.
-                    deferred.add(key)
-                elif key in deferred:
-                    deferred.remove(key)
+            if key not in self.fields:
+                t, m = self._guess_type(val)
+                auth = self._guess_authority(key)
                 field = {
                     'name': key,
                     'indexed': True,
                     'stored': True,
-                    'type': type,
+                    'type': t,
+                    'multiValued': m,
                     'list': False,
                     'facet': True,
-                    'details': True
+                    'details': True,
+                    'authority': auth
                 }
-                auth = self._guess_authority(key)
-                if auth:
-                    field['authority'] = auth
-                self.fields[key] = field
-                new_fields.append(field)
-        for key in deferred:
-            field = {
-                'name': key,
-                'indexed': True,
-                'stored': True,
-                'type': 'text_general',  # Default, permissive type
-                'list': False,
-                'facet': True,
-                'details': True
-            }
-            auth = self._guess_authority(key)
-            if auth:
-                field['authority'] = auth
-            self.fields[key] = field
-            new_fields.append(field)
-        if new_fields:
-            self._save_fields()
+                if t is not None:
+                    new_fields[key] = field
+                    if key in deferred:
+                        deferred.pop(key)
+                else:
+                    deferred[key] = field
+        for field in deferred:
+            field['type'] = 'text_general'
+            field['multiValued'] = True
+            new_fields[field['name']] = field
         return new_fields
 
     def _guess_type(self, o):
         if o is None:
-            return None
+            return None, None
         if isinstance(o, list):
-            subtype = self._guess_type(o[0])
-            if subtype != 'text_general':
-                return subtype + 's'
-            return subtype
+            subtype, ignored = self._guess_type(o[0])
+            return subtype, True
         if isinstance(o, bool):
-            return 'boolean'
+            return 'boolean', False
         if isinstance(o, int):
             # Use trie-encoded integers for range filtering
-            return 'tlong'
+            return 'tlong', False
         if isinstance(o, float):
             # Use trie-encoded floats for range filtering
-            return 'tdouble'
+            return 'tdouble', False
         if isinstance(o, Decimal):
             if (o - int(o)) == 0:
-                return 'tlong'
-            return 'tdouble'
+                return 'tlong', False
+            return 'tdouble', False
         # For short strings, use "string", because they will be used mainly as labels.
         # For long strings, use "text_general", because they will be used mainly for search.
         # '64' is a somewhat arbitrary cut-off between 'short' and 'long'
         if len(o) < 64:
-            return 'string'
-        return 'text_general'
+            return 'string', False
+        return 'text_general', True  # text_general is always multiValued
 
     @staticmethod
     def _guess_authority(name):
@@ -199,8 +196,6 @@ class Solr:
         data = dumps(new_fields, cls=Solr.JsonDecimalEncoder)
         requests.post(url, headers=headers, data=data)
         print("Posting {0} fields to Solr at {1}".format(len(new_fields), url))
-        # Update our local field cache
-        self._get_fields()
 
 
 def test_guess_type():
