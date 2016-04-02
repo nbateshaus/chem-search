@@ -31,7 +31,8 @@ class Chembl:
         row = cur.fetchone()
         while row is not None:
             d = dict(zip(cols, row))
-            d["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["ChEMBL_chembl_id"]
+            d["id"] = d["ChEMBL_chembl_id"]
+            d["URL"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["ChEMBL_chembl_id"]
             s = d["ChEMBL_smiles"]
             if s is not None:
                 smiles = [s]

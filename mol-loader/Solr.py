@@ -77,7 +77,7 @@ class Solr:
         keys = sorted([key for key in self.fields.keys()])
         tmp_fields = [self.fields[key] for key in keys]
         with open(self.SCHEMA_FILE, 'w') as f:
-            dump(tmp_fields, f, indent=4)
+            dump(tmp_fields, f, indent=4, sort_keys=True)
 
     def _post_chunk(self, chunk):
         url = os.path.join(self.url, self.core, 'update') + '?commit=true'
