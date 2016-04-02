@@ -1,949 +1,1301 @@
 [
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_acd_logd",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_acd_logd"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_acd_logp",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_acd_logp"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_acd_most_apka",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_acd_most_apka"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_acd_most_bpka",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_acd_most_bpka"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_alerts",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "strings",
-        "stored": true,
-        "name": "ChEMBL_alerts"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_alogp",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_alogp"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_aromatic_rings",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_aromatic_rings"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_availability_type",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_availability_type"
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "ChEMBL_black_box_warning",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_black_box_warning"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_chebi_id"
+        "authority": "ChEMBL",
+        "stored": true
     },
     {
+        "name": "ChEMBL_chebi_id",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
         "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "displayName": "ChEMBL ID",
+        "name": "ChEMBL_chembl_id",
+        "list": true,
+        "indexed": true,
+        "listOrder": -30,
+        "type": "string",
+        "facet": true,
+        "details": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_chirality",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_dosed_ingredient",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_first_approval",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_first_in_class",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_full_molformula",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_full_mwt",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_hba",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_hba_lipinski",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_hbd",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_hbd_lipinski",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_heavy_atom_count",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_helm_notation",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_inchi",
+        "list": false,
+        "indexed": false,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_inchi_key",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_indication_class",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_inorganic",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_max_phase",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_med_chem_friendly",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_molecular_species",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_molecule_type",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_molregno",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_monoisotopic_weight",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_mw_freebase",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_natural_product",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_num_alerts",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_num_lipinski_ro5_violations",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_num_ro5_violations",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_oral",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_parenteral",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_polymer",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_preferred_name",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_prodrug",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_psa",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_qed_weighted",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_ro3_pass",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_rtb",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_smiles",
+        "list": true,
+        "indexed": false,
+        "listOrder": -10,
+        "type": "string",
+        "facet": true,
+        "details": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_structure_type",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_synonyms",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_therapeutic",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_topical",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_usan_stem",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_usan_stem_definition",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_usan_substem",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "ChEMBL_usan_year",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "ChEMBL",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_ATOM_DEF_STEREO_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_ATOM_UDEF_STEREO_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_BONDANNOTATIONS",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_BOND_DEF_STEREO_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_BOND_UDEF_STEREO_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_COMPLEXITY",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_HBOND_ACCEPTOR",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_HBOND_DONOR",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_ROTATABLE_BOND",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_SUBSKEYS",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_TAUTO_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_CACTVS_TPSA",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_COMPONENT_COUNT",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_COMPOUND_CANONICALIZED",
+        "list": false,
+        "indexed": true,
+        "type": "boolean",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_COMPOUND_CID",
+        "displayName": "Compound CID",
         "list": true,
         "listOrder": -30,
-        "details": true,
         "indexed": true,
+        "type": "tlong",
+        "details": true,
         "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_COORDINATE_TYPE",
+        "list": false,
+        "indexed": true,
         "type": "string",
-        "stored": true,
-        "name": "ChEMBL_chembl_id",
-        "displayName": "ChEMBL ID"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_EXACT_MASS",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_chirality"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_dosed_ingredient"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_first_approval"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_first_in_class"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "stored": true,
-        "name": "ChEMBL_full_molformula"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_full_mwt"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_HEAVY_ATOM_COUNT",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_hba"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_ISOTOPIC_ATOM_COUNT",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_hba_lipinski"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_IUPAC_CAS_NAME",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_hbd"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_hbd_lipinski"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_heavy_atom_count"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_helm_notation"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_IUPAC_INCHI",
         "list": false,
-        "details": true,
         "indexed": false,
-        "facet": true,
         "type": "string",
-        "stored": true,
-        "name": "ChEMBL_inchi"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_IUPAC_INCHIKEY",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "string",
-        "stored": true,
-        "name": "ChEMBL_inchi_key"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_IUPAC_NAME",
         "list": false,
-        "details": true,
         "indexed": true,
+        "type": "text_general",
+        "details": true,
         "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_IUPAC_OPENEYE_NAME",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_IUPAC_SYSTEMATIC_NAME",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_IUPAC_TRADITIONAL_NAME",
+        "list": false,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "PUBCHEM_MOLECULAR_FORMULA",
+        "list": false,
+        "indexed": true,
         "type": "string",
-        "stored": true,
-        "name": "ChEMBL_indication_class"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_MOLECULAR_WEIGHT",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_inorganic"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_max_phase"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_med_chem_friendly"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "stored": true,
-        "name": "ChEMBL_molecular_species"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "stored": true,
-        "name": "ChEMBL_molecule_type"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_molregno"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_monoisotopic_weight"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_MONOISOTOPIC_WEIGHT",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_mw_freebase"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_NONSTANDARDBOND",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_natural_product"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_num_alerts"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_num_lipinski_ro5_violations"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_num_ro5_violations"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_oral"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_parenteral"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_polymer"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_preferred_name"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_prodrug"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_psa"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tdouble",
-        "stored": true,
-        "name": "ChEMBL_qed_weighted"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_ro3_pass"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "ChEMBL_rtb"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": true,
-        "listOrder": -10,
-        "details": true,
-        "indexed": false,
-        "facet": true,
         "type": "string",
-        "stored": true,
-        "name": "ChEMBL_smiles"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_OPENEYE_CAN_SMILES",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "string",
-        "stored": true,
-        "name": "ChEMBL_structure_type"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_synonyms"
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_OPENEYE_ISO_SMILES",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_therapeutic"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "boolean",
-        "stored": true,
-        "name": "ChEMBL_topical"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_usan_stem"
-    },
-    {
-        "authority": "ChEMBL",
-        "list": false,
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_usan_stem_definition"
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_TOTAL_CHARGE",
         "list": false,
-        "details": true,
         "indexed": true,
+        "type": "tlong",
+        "details": true,
         "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_usan_substem"
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "ChEMBL",
+        "name": "PUBCHEM_XLOGP3",
         "list": false,
-        "details": true,
         "indexed": true,
+        "type": "tdouble",
+        "details": true,
         "facet": true,
-        "type": "text_general",
-        "stored": true,
-        "name": "ChEMBL_usan_year"
+        "authority": "PubChem",
+        "stored": true
     },
     {
-        "authority": "RDKit",
+        "name": "PUBCHEM_XLOGP3_AA",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "authority": "PubChem",
+        "stored": true
+    },
+    {
+        "name": "RDKit_ExactMolWt",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
         "displayName": "Exact Molecular Weight",
-        "list": false,
+        "stored": true,
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "tdouble",
+        "authority": "RDKit",
         "grouping": [
             "Chemical and Physical Properties",
             "Computed Properties"
-        ],
-        "stored": true,
-        "name": "RDKit_ExactMolWt"
+        ]
     },
     {
-        "authority": "RDKit",
-        "displayName": "Fingerprint",
+        "name": "RDKit_Fingerprint",
         "list": false,
-        "details": false,
         "indexed": false,
+        "type": "text_general",
+        "displayName": "Fingerprint",
+        "details": false,
         "facet": false,
-        "type": "text_general",
-        "stored": true,
-        "name": "RDKit_Fingerprint"
+        "authority": "RDKit",
+        "stored": true
     },
     {
-        "authority": "RDKit",
+        "name": "RDKit_Fingerprint_bits",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
         "displayName": "Fingerprint Bits",
-        "list": false,
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_Fingerprint_bits"
+        "authority": "RDKit",
+        "stored": true
     },
     {
-        "authority": "RDKit",
-        "displayName": "Fraction C SP3",
+        "name": "RDKit_FractionCSP3",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
-        "type": "tdouble",
         "description": "Fraction of C atoms that are SP3 hybridized",
-        "stored": true,
-        "name": "RDKit_FractionCSP3"
+        "type": "tdouble",
+        "displayName": "Fraction C SP3",
+        "details": true,
+        "facet": true,
+        "authority": "RDKit",
+        "stored": true
     },
     {
-        "authority": "RDKit",
+        "name": "RDKit_HeavyAtomCount",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
         "displayName": "Heavy Atom Count",
-        "list": false,
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_HeavyAtomCount"
+        "authority": "RDKit",
+        "stored": true
     },
     {
-        "authority": "RDKit",
-        "displayName": "Is MesoStructure?",
+        "name": "RDKit_IsMesoStructure",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "boolean",
-        "stored": true,
-        "name": "RDKit_IsMesoStructure"
-    },
-    {
-        "list": false,
+        "displayName": "Is MesoStructure?",
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "tdouble",
-        "stored": true,
-        "name": "RDKit_LabuteASA"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tdouble",
-        "stored": true,
-        "name": "RDKit_MolLogP"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tdouble",
-        "stored": true,
-        "name": "RDKit_MolWt"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NHOHCount"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NOCount"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAliphaticCarbocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAliphaticHeterocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAliphaticRings"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAmideBonds"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAromaticCarbocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAromaticHeterocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumAromaticRings"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumBridgeheadAtoms"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumChiralCenters"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumDefinedChiralCenters"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumHAcceptors"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumHDonors"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumRotatableBonds"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumSaturatedCarbocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumSaturatedHeterocycles"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumSaturatedRings"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumSpiroAtom"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_NumUndefinedChiralCenters"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "tlong",
-        "stored": true,
-        "name": "RDKit_RingCount"
-    },
-    {
         "authority": "RDKit",
-        "displayName": "SMILES",
-        "list": true,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "description": "Canonical SMILES",
-        "listOrder": -10,
-        "stored": true,
-        "name": "RDKit_SMILES"
+        "stored": true
     },
     {
+        "name": "RDKit_LabuteASA",
         "list": false,
-        "details": true,
         "indexed": true,
-        "facet": true,
         "type": "tdouble",
-        "stored": true,
-        "name": "RDKit_TPSA"
+        "details": true,
+        "facet": true,
+        "stored": true
     },
     {
+        "name": "RDKit_MolLogP",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_MolWt",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NHOHCount",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NOCount",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAliphaticCarbocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAliphaticHeterocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAliphaticRings",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAmideBonds",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAromaticCarbocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAromaticHeterocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumAromaticRings",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumBridgeheadAtoms",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumChiralCenters",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumDefinedChiralCenters",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumHAcceptors",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumHDonors",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumRotatableBonds",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumSaturatedCarbocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumSaturatedHeterocycles",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumSaturatedRings",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumSpiroAtom",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_NumUndefinedChiralCenters",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_RingCount",
+        "list": false,
+        "indexed": true,
+        "type": "tlong",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "RDKit_SMILES",
+        "list": true,
+        "indexed": true,
         "listOrder": -10,
-        "list": true,
+        "description": "Canonical SMILES",
+        "type": "string",
+        "displayName": "SMILES",
         "details": true,
-        "indexed": true,
         "facet": true,
-        "type": "strings",
+        "authority": "RDKit",
+        "stored": true
+    },
+    {
+        "name": "RDKit_TPSA",
+        "list": false,
+        "indexed": true,
+        "type": "tdouble",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "SMILES",
+        "list": true,
+        "indexed": true,
+        "listOrder": -10,
         "description": "All observed SMILES",
-        "stored": true,
-        "name": "SMILES"
-    },
-    {
-        "listOrder": -20,
-        "list": true,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "description": "URL of source data",
-        "stored": true,
-        "name": "URL"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "stored": false,
-        "name": "_root_"
-    },
-    {
-        "multiValued": true,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "text_general",
-        "list": false,
-        "stored": false,
-        "name": "_text_"
-    },
-    {
-        "list": false,
-        "details": true,
-        "indexed": true,
-        "facet": true,
-        "type": "long",
-        "stored": true,
-        "name": "_version_"
-    },
-    {
-        "multiValued": false,
-        "details": true,
-        "uniqueKey": true,
-        "indexed": true,
-        "facet": true,
-        "type": "string",
-        "listOrder": -40,
-        "list": true,
-        "stored": true,
-        "name": "id",
-        "required": true
-    },
-    {
-        "listOrder": -30,
-        "displayName": "Synonyms",
-        "list": true,
-        "details": true,
-        "indexed": true,
-        "facet": true,
         "type": "strings",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "URL",
+        "list": true,
+        "indexed": true,
+        "listOrder": -20,
+        "description": "URL of source data",
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "_root_",
+        "list": false,
+        "indexed": true,
+        "type": "string",
+        "details": true,
+        "facet": true,
+        "stored": false
+    },
+    {
+        "list": false,
+        "name": "_text_",
+        "multiValued": true,
+        "indexed": true,
+        "type": "text_general",
+        "details": true,
+        "facet": true,
+        "stored": false
+    },
+    {
+        "name": "_version_",
+        "list": false,
+        "indexed": true,
+        "type": "long",
+        "details": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "list": true,
+        "listOrder": -40,
+        "name": "id",
+        "multiValued": false,
+        "indexed": true,
+        "uniqueKey": true,
+        "type": "string",
+        "details": true,
+        "required": true,
+        "facet": true,
+        "stored": true
+    },
+    {
+        "name": "synonyms",
+        "list": true,
+        "indexed": true,
+        "listOrder": -30,
         "description": "All observed synonyms",
-        "stored": true,
-        "name": "synonyms"
+        "type": "strings",
+        "displayName": "Synonyms",
+        "details": true,
+        "facet": true,
+        "stored": true
     }
 ]
