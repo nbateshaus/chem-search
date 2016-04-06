@@ -33,7 +33,7 @@ class Pubchem(Sdf):
         """
         props = set(mol.GetPropNames())
         d = {p: self.cast(mol.GetProp(p)) for p in props}
-        d['id'] = mol.GetProp('PUBCHEM_COMPOUND_CID')
+        d['id'] = 'PUBCHEM' + mol.GetProp('PUBCHEM_COMPOUND_CID')
         d['URL'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
 
         smiles = [mol.GetProp(p) for p in self.SMILES_PROPS if p in props]
