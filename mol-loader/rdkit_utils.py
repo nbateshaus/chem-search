@@ -95,9 +95,9 @@ def rdkit_mol_from_smiles(smiles):
     return mol
 
 
-def rdkit_fps_from_mol(mol):
+def rdkit_morgan_fps_from_mol(mol):
     """
-    Generate a string representation of the fingerprint of mol
+    Generate a string representation of a Morgan fingerprint with radius 2 from mol
 
     :param mol: RDKit Molecule
     :return: String representation of RDKit fingerprint of mol, number of bits in the fingerprint
@@ -106,7 +106,7 @@ def rdkit_fps_from_mol(mol):
     num_bits = None
     if mol is not None:
         try:
-            fp = Chem.RDKFingerprint(mol)
+            fp = rdMolDescriptors.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048)
             num_bits = fp.GetNumOnBits()
             fps = DataStructs.BitVectToFPSText(fp)
         except ValueError:

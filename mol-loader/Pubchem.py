@@ -5,7 +5,7 @@ Encapsulate reading and formatting of PubChem
 import json
 
 from Sdf import Sdf
-from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles, rdkit_fps_from_mol
+from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles, rdkit_morgan_fps_from_mol
 
 
 class Pubchem(Sdf):
@@ -57,7 +57,7 @@ class Pubchem(Sdf):
 
         rdkit_mol = rdkit_standardize(mol)
         if rdkit_mol is not None:
-            fps, fps_bits = rdkit_fps_from_mol(rdkit_mol)
+            fps, fps_bits = rdkit_morgan_fps_from_mol(rdkit_mol)
             d['RDKit_Fingerprint'] = fps
             d['RDKit_Fingerprint_bits'] = fps_bits
 
