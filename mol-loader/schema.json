@@ -1009,13 +1009,14 @@
     },
     {
         "authority": "RDKit",
+        "Description": "Morgan Fingerprint with Radius 2, hashed to 2048 bits.",
         "details": false,
         "displayName": "Fingerprint",
         "facet": false,
         "indexed": false,
         "list": false,
         "multiValued": false,
-        "name": "RDKit_Fingerprint",
+        "name": "RDKit_MFP2",
         "stored": true,
         "type": "string"
     },
@@ -1027,7 +1028,7 @@
         "indexed": true,
         "list": false,
         "multiValued": false,
-        "name": "RDKit_Fingerprint_bits",
+        "name": "RDKit_MFP2_bits",
         "stored": true,
         "type": "tlong"
     },

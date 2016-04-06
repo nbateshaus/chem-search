@@ -39,8 +39,8 @@ class Chembl:
                 mol = rdkit_standardize(rdkit_mol_from_smiles(s))
                 if mol is not None:
                     fps, fps_bits = rdkit_morgan_fps_from_mol(mol)
-                    d['RDKit_Fingerprint'] = fps
-                    d['RDKit_Fingerprint_bits'] = fps_bits
+                    d['RDKit_MFP2'] = fps
+                    d['RDKit_MFP2_bits'] = fps_bits
 
                     rs = rdkit_smiles(mol)
                     if rs is not None:

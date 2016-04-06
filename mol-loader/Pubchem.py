@@ -58,8 +58,8 @@ class Pubchem(Sdf):
         rdkit_mol = rdkit_standardize(mol)
         if rdkit_mol is not None:
             fps, fps_bits = rdkit_morgan_fps_from_mol(rdkit_mol)
-            d['RDKit_Fingerprint'] = fps
-            d['RDKit_Fingerprint_bits'] = fps_bits
+            d['RDKit_MFP2'] = fps
+            d['RDKit_MFP2_bits'] = fps_bits
 
             rs = rdkit_smiles(rdkit_mol)
             if rs is not None:
