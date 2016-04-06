@@ -5,7 +5,7 @@ Encapsulate reading and formatting of PubChem
 import json
 
 from Sdf import Sdf
-from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles
+from rdkit_utils import rdkit_descriptors, rdkit_standardize, rdkit_smiles, rdkit_morgan_fps_from_mol
 
 
 class Pubchem(Sdf):
@@ -32,37 +32,43 @@ class Pubchem(Sdf):
         mol_to_dict( (Pubchem)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
-        d = {p.lower(): self.cast(mol.GetProp(p)) for p in props}
-        d['id'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
+        d = {p: self.cast(mol.GetProp(p)) for p in props}
+        d['id'] = 'PUBCHEM' + mol.GetProp('PUBCHEM_COMPOUND_CID')
+        d['URL'] = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + mol.GetProp('PUBCHEM_COMPOUND_CID')
 
         smiles = [mol.GetProp(p) for p in self.SMILES_PROPS if p in props]
         smiles.append(rdkit_smiles(mol))  # Original SMILES
 
         if smiles:
-            d['smiles'] = list(set(smiles))
+            d['SMILES'] = list(set(smiles))
 
         synonyms = [mol.GetProp(p) for p in self.SYNONYM_PROPS if p in props]
         if synonyms:
             d['synonyms'] = list(set(synonyms))
 
-        if 'pubchem_compound_canonicalized' in d:
-            canon = d['pubchem_compound_canonicalized']
+        if 'PUBCHEM_COMPOUND_CANONICALIZED' in d:
+            canon = d['PUBCHEM_COMPOUND_CANONICALIZED']
             if canon == 1:
-                d['pubchem_compound_canonicalized'] = True
+                d['PUBCHEM_COMPOUND_CANONICALIZED'] = True
             elif canon == 0:
-                d['pubchem_compound_canonicalized'] = False
+                d['PUBCHEM_COMPOUND_CANONICALIZED'] = False
             else:
-                del d['pubchem_compound_canonicalized']
+                del d['PUBCHEM_COMPOUND_CANONICALIZED']
 
         rdkit_mol = rdkit_standardize(mol)
-        rs = rdkit_smiles(rdkit_mol)
-        if rs is not None:
-            d['rdkit_smiles'] = rs
-            smiles.append(rs)
+        if rdkit_mol is not None:
+            fps, fps_bits = rdkit_morgan_fps_from_mol(rdkit_mol)
+            d['RDKit_MFP2'] = fps
+            d['RDKit_MFP2_bits'] = fps_bits
 
-        descs = rdkit_descriptors(rdkit_mol)
-        for name in descs:
-            d['rdkit_' + name.lower()] = descs[name]
+            rs = rdkit_smiles(rdkit_mol)
+            if rs is not None:
+                d['RDKit_SMILES'] = rs
+                smiles.append(rs)
+
+            descs = rdkit_descriptors(rdkit_mol)
+            for name in descs:
+                d['RDKit_' + name] = descs[name]
 
         return d
 

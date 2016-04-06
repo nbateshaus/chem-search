@@ -5,7 +5,7 @@ Encapsulate reading and formatting of SureChEMBL
 import json
 
 from Sdf import Sdf
-from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_morgan_fps_from_mol
 
 
 class Surechembl(Sdf):
@@ -19,22 +19,28 @@ class Surechembl(Sdf):
         mol_to_dict( (Surechembl)self, (rdkit.Chem.Mol)mol) -> dict
         """
         props = set(mol.GetPropNames())
-        d = {p.lower(): self.cast(mol.GetProp(p)) for p in props}
-        d['id'] = 'https://www.surechembl.org/chemical/' + mol.GetProp('ID')
+        d = {'SureChEMBL_' + p: self.cast(mol.GetProp(p)) for p in props}
+        d['id'] = d['SureChEMBL_ID']
+        d['URL'] = 'https://www.surechembl.org/chemical/' + d['SureChEMBL_ID']
 
         smiles = []
         rdkit_mol = rdkit_standardize(mol)
-        rs = rdkit_smiles(rdkit_mol)
-        if rs is not None:
-            d['rdkit_smiles'] = rs
-            smiles.append(rs)
+        if rdkit_mol is not None:
+            fps, fps_bits = rdkit_morgan_fps_from_mol(rdkit_mol)
+            d['RDKit_MFP2'] = fps
+            d['RDKit_MFP2_bits'] = fps_bits
 
-        descs = rdkit_descriptors(rdkit_mol)
-        for name in descs:
-            d['rdkit_' + name.lower()] = descs[name]
+            rs = rdkit_smiles(rdkit_mol)
+            if rs is not None:
+                d['RDKit_SMILES'] = rs
+                smiles.append(rs)
+
+            descs = rdkit_descriptors(rdkit_mol)
+            for name in descs:
+                d['RDKit_' + name] = descs[name]
 
         if smiles:
-            d['smiles'] = list(set(smiles))
+            d['SMILES'] = list(set(smiles))
 
         return d
 

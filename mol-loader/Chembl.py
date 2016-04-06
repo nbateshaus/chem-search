@@ -4,7 +4,7 @@ Encapsulate interaction with ChEMBLdb.
 
 import psycopg2
 
-from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_mol_from_smiles
+from rdkit_utils import rdkit_standardize, rdkit_descriptors, rdkit_smiles, rdkit_mol_from_smiles, rdkit_morgan_fps_from_mol
 
 
 class Chembl:
@@ -27,23 +27,29 @@ class Chembl:
             q += "LIMIT {0}".format(self.limit) # TODO: use SQL parameters
         cur = psycopg2.connect(self.dsn).cursor()
         cur.execute(q)
-        cols = [col[0] for col in cur.description]
+        cols = ['ChEMBL_' + col[0] for col in cur.description]
         row = cur.fetchone()
         while row is not None:
             d = dict(zip(cols, row))
-            d["id"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["chembl_id"]
-            s = d["smiles"]
+            d["id"] = d["ChEMBL_chembl_id"]
+            d["URL"] = "https://www.ebi.ac.uk/chembl/compound/inspect/" + d["ChEMBL_chembl_id"]
+            s = d["ChEMBL_smiles"]
             if s is not None:
                 smiles = [s]
                 mol = rdkit_standardize(rdkit_mol_from_smiles(s))
-                rs = rdkit_smiles(mol)
-                if rs is not None:
-                    d['rdkit_smiles'] = rs
-                    smiles.append(rs)
-                descs = rdkit_descriptors(mol)
-                for name in descs:
-                    d['rdkit_' + name.lower()] = descs[name]
-                d["smiles"] = list(set(smiles))
+                if mol is not None:
+                    fps, fps_bits = rdkit_morgan_fps_from_mol(mol)
+                    d['RDKit_MFP2'] = fps
+                    d['RDKit_MFP2_bits'] = fps_bits
+
+                    rs = rdkit_smiles(mol)
+                    if rs is not None:
+                        d['RDKit_SMILES'] = rs
+                        smiles.append(rs)
+                    descs = rdkit_descriptors(mol)
+                    for name in descs:
+                        d['RDKit_' + name] = descs[name]
+                d["SMILES"] = list(set(smiles))
             yield d
             row = cur.fetchone()
 
