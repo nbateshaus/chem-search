@@ -62,7 +62,8 @@ class Solr:
                 self._post_chunk(chunk)
                 chunk = []
         if len(chunk) != 0:
-                self._post_chunk(chunk)
+            self._reconcile_schema(new_fields)
+            self._post_chunk(chunk)
 
     def _load_fields(self):
         if os.access(self.SCHEMA_FILE, os.R_OK):
@@ -84,6 +85,7 @@ class Solr:
         requests.post(url, headers=headers, data=data)
 
     def _reconcile_schema(self, missing_from_file):
+        print('Reconciling schema')
         for f in missing_from_file:
             if f not in self.fields:
                 self.fields[f] = missing_from_file[f]
@@ -98,7 +100,7 @@ class Solr:
                 missing_from_file[f] = solr_fields[f]
                 self.fields[f] = solr_fields[f]
         if missing_from_file:
-            print('Saving fields {0}'.format(missing_from_file.keys()))
+            print('Saving {0} fields'.format(len(missing_from_file)))
             self._save_fields()
 
         # Find any fields not in Solr, add and post them
@@ -107,6 +109,7 @@ class Solr:
             if f not in solr_fields:
                 missing_from_solr.append(self.fields[f])
         if missing_from_solr:
+            print('Posting {0} fields to Solr'.format(len(missing_from_solr)))
             self._post_fields(missing_from_solr)
 
     def _new_fields_in_mol(self, mol):
@@ -195,7 +198,6 @@ class Solr:
         # Apparently, "add-field" is implied.
         data = dumps(new_fields, cls=Solr.JsonDecimalEncoder)
         requests.post(url, headers=headers, data=data)
-        print("Posting {0} fields to Solr at {1}".format(len(new_fields), url))
 
 
 def test_guess_type():
