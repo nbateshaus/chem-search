@@ -1014,9 +1014,10 @@
         "facet": false,
         "indexed": false,
         "list": false,
+        "multiValued": false,
         "name": "RDKit_Fingerprint",
         "stored": true,
-        "type": "text_general"
+        "type": "string"
     },
     {
         "authority": "RDKit",
