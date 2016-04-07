@@ -3,6 +3,8 @@ package org.rdkit;
 import java.io.IOException;
 import java.util.Map;
 
+import org.RDKit.ExplicitBitVect;
+import org.RDKit.RDKFuncs;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.function.FunctionValues;
 import org.apache.lucene.queries.function.ValueSource;
@@ -12,15 +14,24 @@ import org.apache.solr.search.SyntaxError;
 import org.apache.solr.search.ValueSourceParser;
 
 /**
- * Created by nik on 4/6/16.
+ * Function plugin providing 'tanimoto' function.
+ *
+ * Use this as tanimoto(field,"FingerPrintStringLiteral"). The result is the Tanimoto similarity
+ * metric between the value(s) in the field, and the BitVector represented by the string literal.
  */
 public class TanimotoSimilarityParser extends ValueSourceParser {
-	public class TanimotoSimilarity extends ValueSource {
-		public final String NAME = "tanimoto";
+
+	static {
+		// Explicitly load the RDKit JNI library
+		System.loadLibrary("GraphMolWrap");
+	}
+
+	private class TanimotoSimilarity extends ValueSource {
+		final String NAME = "tanimoto";
 		private final ValueSource source;
 		private final String fps;
 
-		public TanimotoSimilarity(ValueSource source, String fps) {
+		TanimotoSimilarity(ValueSource source, String fps) {
 			this.source = source;
 			this.fps = fps;
 		}
@@ -28,6 +39,7 @@ public class TanimotoSimilarityParser extends ValueSourceParser {
 		@Override
 		public FunctionValues getValues(Map context, LeafReaderContext readerContext) throws IOException {
 			final FunctionValues values = source.getValues(context, readerContext);
+			final ExplicitBitVect fp1 = new ExplicitBitVect(fps);
 			return new FunctionValues() {
 				@Override
 				public float floatVal(int doc) {
@@ -43,8 +55,9 @@ public class TanimotoSimilarityParser extends ValueSourceParser {
 				}
 				@Override
 				public double doubleVal(int doc) {
-					String fps2 = values.strVal(doc);
-					return fps.length() - fps2.length(); // TODO nik: RDKit Tanimoto Similarity here
+					final String fps2 = values.strVal(doc);
+					final ExplicitBitVect fp2 = new ExplicitBitVect(fps2);
+					return RDKFuncs.TanimotoSimilarityEBV(fp1, fp2);
 				}
 				@Override
 				public String strVal(int doc) {
