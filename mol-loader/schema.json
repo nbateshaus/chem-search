@@ -1013,7 +1013,7 @@
         "details": false,
         "displayName": "Fingerprint",
         "facet": false,
-        "indexed": false,
+        "indexed": true,
         "list": false,
         "multiValued": false,
         "name": "RDKit_MFP2",
