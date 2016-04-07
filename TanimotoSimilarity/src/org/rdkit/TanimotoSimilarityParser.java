@@ -51,12 +51,12 @@ public class TanimotoSimilarityParser extends ValueSourceParser {
 
 				@Override
 				public int intVal(int doc) {
-					return (int) doubleVal(doc);
+					return (int) (Integer.MAX_VALUE * doubleVal(doc));
 				}
 
 				@Override
 				public long longVal(int doc) {
-					return (long) doubleVal(doc);
+					return (long) intVal(doc);
 				}
 
 				@Override
